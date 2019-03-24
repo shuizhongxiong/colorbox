@@ -1,0 +1,33 @@
+.app-color-stack {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  .stack-block {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    font-size: 16px;
+    .block-label {
+      min-width: 27px;
+      font-weight: bold;
+    }
+    .block-lock {
+      margin: 0 4px;
+      width: 16px;
+      >i {
+        font-size: 16px;
+        color: #fff;
+      }
+    }
+    .block-black {
+      margin: 0 4px;
+      color: black;
+    }
+    .block-white {
+      margin: 0 4px;
+      color: white;
+    }
+  }
+}

@@ -1,0 +1,38 @@
+.app-wrapper {
+  .app-content {
+    display: flex;
+    height: calc(100vh - 64px);
+    background-color: #fff;
+    .content-palette {
+      flex-shrink: 0;
+      overflow: auto;
+      padding: 24px;
+      width: 24%;
+      min-width: 240px;
+      border-right: 1px solid #cacad9;
+    }
+    .content-main {
+      flex-grow: 1;
+      width: 52%;
+      background-image: linear-gradient(rgba(244, 244, 250, 0.8) 1px, transparent 0), linear-gradient(#f4f4fa 1px, transparent 0), linear-gradient(90deg, rgba(244, 244, 250, 0.8) 1px, transparent 0), linear-gradient(90deg, #f4f4fa 1px, transparent 0), linear-gradient(transparent 3px, #fff 0, #fff 94px, transparent 0), linear-gradient(90deg, #f4f4fa 3px, transparent 0, transparent 94px, #f4f4fa 0);
+      background-size: 24px 24px, 96px 96px, 24px 24px, 96px 96px, 96px 96px, 96px 96px;
+      .main-graph {
+        padding: 24px;
+        height: calc((100vh - 64px) / 5 * 2);
+        border-bottom: 1px solid #cacad9;
+      }
+      .main-chart {
+        overflow: auto;
+        padding: 24px;
+        height: calc((100vh - 64px) / 5 * 3);
+      }
+    }
+    .content-stack {
+      flex-shrink: 0;
+      overflow: auto;
+      width: 24%;
+      min-width: 240px;
+      border-left: 1px solid #cacad9;
+    }
+  }
+}

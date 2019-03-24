@@ -1,0 +1,94 @@
+.app-color-palette {
+  overflow-x: auto;
+  .palette-block {
+    color: #292936;
+    font-size: 14px;
+    &:not(:last-child) {
+      margin-bottom: 24px;
+      padding-bottom: 24px;
+      box-shadow: 0 2px 0 rgba(0, 0, 0, .16);
+    }
+    .block-header {
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .header-title {
+        font-size: 18px;
+        font-weight: bold;
+      }
+      .header-btn {
+        font-weight: 500;
+        >a {
+          margin-left: 12px;
+        }
+      }
+    }
+    .block-group {
+      margin-bottom: 8px;
+      .group-label {
+        font-weight: 600;
+      }
+      .group-content {
+        .content-tip {
+          margin-top: 4px;
+        }
+      }
+    }
+  }
+  nz-slider,
+  nz-select {
+    width: 100%;
+  }
+  nz-slider {
+    .ant-slider {
+      margin: 14px 15px;
+    }
+    .ant-slider-rail {
+      height: 8px;
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, .4);
+      border-radius: 10px;
+      background: #e6e6e6 !important;
+    }
+    .ant-slider-track {
+      height: 8px;
+      background-color: transparent !important;
+    }
+    .ant-slider-handle {
+      margin-left: -15px;
+      margin-top: -11px;
+      width: 30px;
+      height: 30px;
+      border: 1px solid #ccc !important;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, .16);
+    }
+  }
+  .slider-steps {
+    .ant-slider-rail {
+      background-color: #e6e6e6 !important;
+    }
+    .ant-slider-track {
+      background-color: #787891 !important;
+    }
+  }
+  .slider-hue {
+    .ant-slider-rail {
+      background-image: linear-gradient(90deg, red, #ff0 17%, #0f0 33%, #0ff 50%, #00f 67%, #f0f 83%, red) !important;
+    }
+  }
+  .slider-sat {
+    .ant-slider-rail {
+      background-image: linear-gradient(90deg, #fff, #8b37ff) !important;
+    }
+  }
+  .slider-sat-rate {
+    .ant-slider-track {
+      background-color: #8b37ff !important;
+    }
+  }
+  .slider-lum {
+    .ant-slider-rail {
+      background-image: linear-gradient(-90deg, #fff, #000) !important;
+    }
+  }
+}

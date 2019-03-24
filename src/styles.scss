@@ -1,1 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+/* Please don't write styles here, just import style files */
+
+/* 通用工具样式 */
+@import './assets/css/common.css';
+/* 覆盖 nz-zorro 样式 */
+@import './assets/css/nz-cover.scss';

@@ -1,0 +1,45 @@
+.app-color-graph {
+  overflow: auto hidden;
+  height: 100%;
+  .graph-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #292936;
+  }
+  .graph-dots {
+    display: flex;
+    justify-content: space-between;
+    height: calc(100% - 62px);
+    .dots {
+      display: flex;
+      justify-content: center;
+      flex-shrink: 0;
+      position: relative;
+      height: 25px;
+      width: 25px;
+      border-radius: 50%;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, .16);
+      &.lock {
+        border: 2px solid black;
+        box-sizing: content-box;
+      }
+      .dot-step {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        width: 100%;
+        position: absolute;
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 25px;
+        text-align: center;
+      }
+      .dot-value {
+        margin-top: 32px;
+        font-size: 12px;
+        font-weight: 700;
+        color: #292936;
+      }
+    }
+  }
+}

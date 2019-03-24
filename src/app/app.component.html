@@ -1,4 +1,22 @@
-<!-- NG-ZORRO -->
-<a href="https://github.com/NG-ZORRO/ng-zorro-antd" target="_blank" style="display: flex;align-items: center;justify-content: center;height: 100%;width: 100%;">
-  <img height="300" src="https://img.alicdn.com/tfs/TB1X.qJJgHqK1RjSZFgXXa7JXXa-89-131.svg">
-</a>
+<div class="app-wrapper">
+  <app-header (headerReset)="headerReset()" (headerShare)="headerShare()">
+  </app-header>
+  <div class="app-content">
+    <div class="content-palette">
+      <app-color-palette (resultChange)="resultChange($event)"
+        (graphChange)="graphChange($event)">
+      </app-color-palette>
+    </div>
+    <div class="content-main">
+      <div class="main-graph">
+        <app-color-graph [result]="result" [graph]="graph"></app-color-graph>
+      </div>
+      <div class="main-chart">
+        <app-color-chart [result]="result"></app-color-chart>
+      </div>
+    </div>
+    <div class="content-stack">
+      <app-color-stack [result]="result"></app-color-stack>
+    </div>
+  </div>
+</div>

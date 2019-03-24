@@ -1,0 +1,9 @@
+<div class="app-color-chart">
+  <ng-echarts-line height="100%" [data]="lineData.list"
+    (chartInit)="lineData.chartInit($event)"></ng-echarts-line>
+  <nz-divider></nz-divider>
+  <ng-echarts-pie height="100%" [dataConfig]="pieData.config"
+    [data]="pieData.list" (chartInit)="pieData.chartInit($event)">
+  </ng-echarts-pie>
+  <nz-divider></nz-divider>
+</div>
