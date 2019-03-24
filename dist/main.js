@@ -1520,11 +1520,11 @@ var ColorChartComponent = /** @class */ (function () {
             for (var ii = 0; ii < max; ii++) {
                 children.push({
                     key: Object(date_fns__WEBPACK_IMPORTED_MODULE_2__["format"])(Object(date_fns__WEBPACK_IMPORTED_MODULE_2__["subDays"])(this.today, ii), 'YYYY-MM-DD'),
-                    value: ii + i
+                    value: (ii + i + Math.random()).toFixed(2)
                 });
             }
             list.push({
-                name: '数据-' + (i + 1),
+                name: '数据' + (i + 1),
                 children: children
             });
         }
@@ -1535,7 +1535,7 @@ var ColorChartComponent = /** @class */ (function () {
         var list = [];
         for (var i = 0; i < count; i++) {
             list.push({
-                key: '数据-' + i,
+                key: '数据' + i + 1,
                 value: Math.random()
             });
         }

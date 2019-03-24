@@ -66,11 +66,11 @@ export class ColorChartComponent implements OnInit {
       for (let ii = 0; ii < max; ii++) {
         children.push({
           key: format(subDays(this.today, ii), 'YYYY-MM-DD'),
-          value: ii + i
+          value: (ii + i + Math.random()).toFixed(2)
         });
       }
       list.push({
-        name: '数据-' + (i + 1),
+        name: '数据' + (i + 1),
         children
       });
     }
@@ -82,7 +82,7 @@ export class ColorChartComponent implements OnInit {
     const list = [];
     for (let i = 0; i < count; i++) {
       list.push({
-        key: '数据-' + i,
+        key: '数据' + i + 1,
         value: Math.random()
       });
     }
