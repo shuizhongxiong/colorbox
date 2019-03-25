@@ -1,4 +1,5 @@
 .app-wrapper {
+  min-width: 800px;
   .app-content {
     display: flex;
     height: calc(100vh - 64px);

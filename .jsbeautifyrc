@@ -1,12 +1,12 @@
 {
   "indent_size": 2,
-  "preserve_newlines": false,
   "html": {
     "wrap_line_length": 80,
     "end_with_newline": true,
     "preserve_newlines": false
   },
   "css": {
+    "preserve_newlines": false,
     "end_with_newline": true,
     "newline_between_rules": false
   },
