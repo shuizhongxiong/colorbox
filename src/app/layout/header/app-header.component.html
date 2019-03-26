@@ -1,71 +1,12 @@
-<div class="header">
-  <div class="leftHeader">
-    <div class="logoText">
-      <div class="logo">
-        <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-          xmlns:xlink="http://www.w3.org/1999/xlink"
-          xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/" x="0px"
-          y="0px" width="28.9px" height="28.9px" viewBox="0 0 28.9 28.9"
-          style="enable-background:new 0 0 28.9 28.9;" xml:space="preserve">
-          <style type="text/css">
-            .st0 {
-              fill: none;
-              stroke: #000000;
-              stroke-width: 5;
-            }
-
-            .st1 {
-              fill: none;
-              stroke: url(#Stroke-3_2_);
-              stroke-width: 5;
-            }
-
-            .st2 {
-              fill: none;
-              stroke: url(#Stroke-3_3_);
-              stroke-width: 5;
-            }
-
-          </style>
-          <defs></defs>
-          <g id="Page-1_1_">
-            <g id="Artboard-4_1_"
-              transform="translate(-311.000000, -346.000000)">
-              <g id="Group-5_1_" transform="translate(314.000000, 349.000000)">
-                <polyline id="Stroke-1_1_" class="st0"
-                  points="23.4,23.4 -0.5,23.4 -0.5,-0.5 			">
-                </polyline>
-                <radialGradient id="Stroke-3_2_" cx="-280.3619" cy="392.5891"
-                  r="1.0618"
-                  gradientTransform="matrix(23.8869 0 0 -23.8869 6720.3569 9377.2285)"
-                  gradientUnits="userSpaceOnUse">
-                  <stop offset="0" style="stop-color:#342E7F"></stop>
-                  <stop offset="0.4782" style="stop-color:#5B45AA"></stop>
-                  <stop offset="0.6619" style="stop-color:#855ED9"></stop>
-                  <stop offset="0.8862" style="stop-color:#FF6893"></stop>
-                  <stop offset="1" style="stop-color:#FF9365"></stop>
-                </radialGradient>
-                <path id="Stroke-3_1_" class="st1"
-                  d="M-0.5-0.5h23.9v23.9C10.2,23.4-0.5,12.7-0.5-0.5z">
-                </path>
-              </g>
-            </g>
-          </g>
-        </svg>
-      </div>
-      <h3 class="logoType">ColorBox</h3>
-      <p class="logoCompany">
-        <a href="https://www.jiguang.cn/" target="#">by JiGuang Design</a>
-      </p>
+<div class="header clearfloat">
+  <div class="float-left">
+    <div class="header-logo">
+      <img src="/assets/images/logo.png" alt="极光可视化色彩工具">
     </div>
+    <p class="header-title">极光可视化色彩工具</p>
   </div>
-  <div class="centerHeader"></div>
-  <div class="rightHeader">
-    <div class="secondaryButton">
-      <h4 class="secondaryButtonLabel" (click)="reset()">Reset</h4>
-    </div>
-    <div class="button">
-      <h4 class="buttonLabel" (click)="share()">Share</h4>
-    </div>
+  <div class="float-right">
+    <button nz-button (click)="reset()">重置</button>
+    <button nz-button nzType="primary" (click)="share()">导出</button>
   </div>
 </div>

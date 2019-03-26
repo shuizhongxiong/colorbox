@@ -13,16 +13,16 @@ export class ColorPaletteComponent implements OnInit {
   values = {
     steps: 11,
     minor_steps_map: [null],
-    hue_start: 315,
-    hue_end: 293,
-    hue_curve: 'easeInQuad',
-    sat_start: 4,
-    sat_end: 90,
-    sat_curve: 'easeOutQuad',
+    hue_start: 0,
+    hue_end: 359,
+    hue_curve: 'linear',
+    sat_start: 50,
+    sat_end: 50,
+    sat_curve: 'linear',
     sat_rate: 130,
-    lum_start: 100,
-    lum_end: 53,
-    lum_curve: 'easeOutQuad',
+    lum_start: 50,
+    lum_end: 50,
+    lum_curve: 'linear',
     lock_hex: '',
     modifier: 10,
   };
@@ -82,7 +82,7 @@ export class ColorPaletteComponent implements OnInit {
   @Output() graphChange: EventEmitter<string> = new EventEmitter();
 
   ngOnInit() {
-    this.valueChange('#8b37ff', 'lock_hex');
+    this.valueChange('', 'lock_hex');
   }
 
   valueChange(value: any, key: string) {

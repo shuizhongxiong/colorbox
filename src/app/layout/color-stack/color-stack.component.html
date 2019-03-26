@@ -1,13 +1,20 @@
 <div class="app-color-stack">
-  <div class="stack-block" *ngFor="let data of result"
-    [style.backgroundColor]="data.hex">
-    <div class="block-label" [style.color]="data.displayColor">{{data.label}}
+  <div class="stack-header clearfloat">
+    <p class="float-left header-title">文字测试</p>
+    <p class="float-right header-subtitle">请注意文字阅读清晰度</p>
+  </div>
+  <div class="stack-main">
+    <div class="stack-block" *ngFor="let data of result"
+      [style.backgroundColor]="data.hex">
+      <div class="block-label" [style.color]="data.displayColor">{{data.label}}
+      </div>
+      <div class="block-lock">
+        <i *ngIf="data.lock" nz-icon type="lock" theme="outline"></i>
+      </div>
+      <div class="block-black">{{data.contrastBlack}}b</div>
+      <div class="block-white">{{data.contrastWhite}}w</div>
+      <div class="block-hex" [style.color]="data.displayColor">{{data.hex}}
+      </div>
     </div>
-    <div class="block-lock">
-      <i *ngIf="data.lock" nz-icon type="lock" theme="outline"></i>
-    </div>
-    <div class="block-black">{{data.contrastBlack}}b</div>
-    <div class="block-white">{{data.contrastWhite}}w</div>
-    <div class="block-hex" [style.color]="data.displayColor">{{data.hex}}</div>
   </div>
 </div>

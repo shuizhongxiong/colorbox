@@ -1,33 +1,50 @@
 .app-color-stack {
-  display: flex;
-  flex-direction: column;
+  padding: 16px 20px 20px 20px;
   height: 100%;
-  .stack-block {
-    flex: 1;
+  .stack-header {
+    margin-bottom: 14px;
+    .header-title {
+      font-size: 14px;
+      color: #333333;
+    }
+    .header-subtitle {
+      font-size: 12px;
+      color: #909090;
+    }
+  }
+  .stack-main {
+    overflow: auto;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 24px;
-    font-size: 16px;
-    .block-label {
-      min-width: 27px;
-      font-weight: bold;
-    }
-    .block-lock {
-      margin: 0 4px;
-      width: 16px;
-      >i {
-        font-size: 16px;
-        color: #fff;
+    flex-direction: column;
+    height: calc(100% - 35px);
+    .stack-block {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      min-height: 30px;
+      font-size: 16px;
+      .block-label {
+        min-width: 27px;
+        font-weight: bold;
       }
-    }
-    .block-black {
-      margin: 0 4px;
-      color: black;
-    }
-    .block-white {
-      margin: 0 4px;
-      color: white;
+      .block-lock {
+        margin: 0 4px;
+        width: 16px;
+        >i {
+          font-size: 16px;
+          color: #fff;
+        }
+      }
+      .block-black {
+        margin: 0 4px;
+        color: black;
+      }
+      .block-white {
+        margin: 0 4px;
+        color: white;
+      }
     }
   }
 }

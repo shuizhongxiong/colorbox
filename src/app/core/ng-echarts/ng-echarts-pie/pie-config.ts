@@ -13,14 +13,6 @@ export class PieConfig {
         padding: 10,
         backgroundColor: TooltipBgColor
       },
-      toolbox: {
-        show: true,
-        feature: {
-          dataView: { readOnly: false },
-          restore: {},
-          saveAsImage: {}
-        }
-      },
       legend: {
         type: 'scroll',
         bottom: '0',

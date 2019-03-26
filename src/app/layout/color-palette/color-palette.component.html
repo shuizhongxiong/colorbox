@@ -1,10 +1,9 @@
 <div class="app-color-palette">
   <div class="palette-block">
     <div class="block-header">
-      <div class="header-title">Major Steps</div>
+      <div class="header-title">颜色数量</div>
     </div>
     <div class="block-group">
-      <div class="group-label">Total</div>
       <div class="group-content">
         <nz-slider class="slider-steps" [nzMin]="steps.min" [nzMax]="steps.max"
           [(ngModel)]="values.steps"
@@ -16,15 +15,14 @@
   </div>
   <div class="palette-block">
     <div class="block-header">
-      <div class="header-title">Minor Steps</div>
+      <div class="header-title">插入颜色</div>
       <div class="header-btn">
-        <a href="javascript:void(0);" (click)="minorStepsHandle.add()">Add</a>
+        <a href="javascript:void(0);" (click)="minorStepsHandle.add()">添加</a>
         <a href="javascript:void(0);"
-          (click)="minorStepsHandle.clear()">Clear</a>
+          (click)="minorStepsHandle.clear()">清空</a>
       </div>
     </div>
     <div class="block-group">
-      <div class="group-label">Add step after</div>
       <div class="group-content"
         *ngFor="let data of values.minor_steps_map;let i = index;">
         <nz-select [nzAllowClear]="true" [(ngModel)]="data"
@@ -39,13 +37,13 @@
   </div>
   <div class="palette-block">
     <div class="block-header">
-      <div class="header-title">Hue</div>
+      <div class="header-title">色相</div>
       <div class="header-btn">
-        <a href="javascript:void(0);" (click)="chageGraph('hue')">View Graph</a>
+        <a href="javascript:void(0);" (click)="chageGraph('hue')">查看曲线</a>
       </div>
     </div>
     <div class="block-group">
-      <div class="group-label">Start</div>
+      <div class="group-label">开始</div>
       <div class="group-content">
         <nz-slider class="slider-hue" [nzMin]="hue.startMin"
           [nzMax]="hue.startMax" [(ngModel)]="values.hue_start"
@@ -55,7 +53,7 @@
       </div>
     </div>
     <div class="block-group">
-      <div class="group-label">End</div>
+      <div class="group-label">结束</div>
       <div class="group-content">
         <nz-slider class="slider-hue" [nzMin]="hue.endMin" [nzMax]="hue.endMax"
           [(ngModel)]="values.hue_end"
@@ -65,7 +63,7 @@
       </div>
     </div>
     <div class="block-group">
-      <div class="group-label">Curve</div>
+      <div class="group-label">矫正曲线</div>
       <div class="group-content">
         <nz-select [(ngModel)]="values.hue_curve"
           (ngModelChange)="valueChange($event, 'hue_curve')">
@@ -78,13 +76,13 @@
   </div>
   <div class="palette-block">
     <div class="block-header">
-      <div class="header-title">Saturation</div>
+      <div class="header-title">饱和度</div>
       <div class="header-btn">
-        <a href="javascript:void(0);" (click)="chageGraph('sat')">View Graph</a>
+        <a href="javascript:void(0);" (click)="chageGraph('sat')">查看曲线</a>
       </div>
     </div>
     <div class="block-group">
-      <div class="group-label">Start</div>
+      <div class="group-label">开始</div>
       <div class="group-content">
         <nz-slider class="slider-sat" [nzMin]="saturation.startMin"
           [nzMax]="saturation.startMax" [(ngModel)]="values.sat_start"
@@ -95,7 +93,7 @@
       </div>
     </div>
     <div class="block-group">
-      <div class="group-label">End</div>
+      <div class="group-label">结束</div>
       <div class="group-content">
         <nz-slider class="slider-sat" [nzMin]="saturation.endMin"
           [nzMax]="saturation.endMax" [(ngModel)]="values.sat_end"
@@ -106,7 +104,7 @@
       </div>
     </div>
     <div class="block-group">
-      <div class="group-label">Curve</div>
+      <div class="group-label">矫正曲线</div>
       <div class="group-content">
         <nz-select [(ngModel)]="values.sat_curve"
           (ngModelChange)="valueChange($event, 'sat_curve')">
@@ -117,7 +115,7 @@
       </div>
     </div>
     <div class="block-group">
-      <div class="group-label">Rate</div>
+      <div class="group-label">曲率</div>
       <div class="group-content">
         <nz-slider class="slider-sat-rate" [nzMin]="saturation.rateMin"
           [nzMax]="saturation.rateMax" [(ngModel)]="values.sat_rate"
@@ -130,13 +128,13 @@
   </div>
   <div class="palette-block">
     <div class="block-header">
-      <div class="header-title">Luminosity</div>
+      <div class="header-title">明度</div>
       <div class="header-btn">
-        <a href="javascript:void(0);" (click)="chageGraph('lum')">View Graph</a>
+        <a href="javascript:void(0);" (click)="chageGraph('lum')">查看曲线</a>
       </div>
     </div>
     <div class="block-group">
-      <div class="group-label">Start</div>
+      <div class="group-label">开始</div>
       <div class="group-content">
         <nz-slider class="slider-lum" [nzMin]="luminosity.startMin"
           [nzMax]="luminosity.startMax" [(ngModel)]="values.lum_start"
@@ -147,7 +145,7 @@
       </div>
     </div>
     <div class="block-group">
-      <div class="group-label">End</div>
+      <div class="group-label">结束</div>
       <div class="group-content">
         <nz-slider class="slider-lum" [nzMin]="luminosity.endMin"
           [nzMax]="luminosity.endMax" [(ngModel)]="values.lum_end"
@@ -158,7 +156,7 @@
       </div>
     </div>
     <div class="block-group">
-      <div class="group-label">Curve</div>
+      <div class="group-label">矫正曲线</div>
       <div class="group-content">
         <nz-select [(ngModel)]="values.lum_curve"
           (ngModelChange)="valueChange($event, 'lum_curve')">
@@ -171,14 +169,13 @@
   </div>
   <div class="palette-block">
     <div class="block-header">
-      <div class="header-title">Lock Color (Optional)</div>
+      <div class="header-title">锁定颜色 (可选)</div>
       <div class="header-btn">
         <a href="javascript:void(0);"
-          (click)="valueChange('', 'lock_hex')">Clear</a>
+          (click)="valueChange('', 'lock_hex')">清空</a>
       </div>
     </div>
     <div class="block-group">
-      <div class="group-label">Hex value</div>
       <div class="group-content">
         <input nz-input [(ngModel)]="values.lock_hex"
           (ngModelChange)="valueChange($event, 'lock_hex')" />
