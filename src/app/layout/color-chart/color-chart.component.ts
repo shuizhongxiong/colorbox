@@ -9,10 +9,10 @@ import { DeviceBrandData } from './macok-data';
   styleUrls: ['./color-chart.component.scss']
 })
 export class ColorChartComponent implements OnInit {
-  radioValue = 'line';
+  radioValue = 'bar';
   radioData = [
     { label: '折线图', value: 'line' },
-    // { label: '柱状图', value: 'bar' },
+    { label: '柱状图', value: 'bar' },
     { label: '饼图', value: 'pie' },
     // { label: '箱型矩图', value: 'treemap' }
   ];
@@ -29,7 +29,7 @@ export class ColorChartComponent implements OnInit {
     }
   };
 
-  // 折线图
+  // 柱状图
   barData = {
     list: [],
     status: null,
@@ -46,7 +46,7 @@ export class ColorChartComponent implements OnInit {
       name: '颜色分布'
     },
     optionsInit: (options) => {
-      // options.color = this.colorList;
+      options.color = this.colorList;
     }
   };
 
@@ -61,7 +61,7 @@ export class ColorChartComponent implements OnInit {
       }
     },
     optionsInit: (options) => {
-      // options.color = this.colorList;
+      options.color = this.colorList;
     }
   };
 
@@ -119,19 +119,21 @@ export class ColorChartComponent implements OnInit {
 
   private changeBarData() {
     const list = [];
+    const max = 1;
     const count = this.colorList.length;
-    const children = [];
     for (let i = 0; i < count; i++) {
-      children.push({
-        key: '颜色' + (i + 1),
-        value: (i + Math.random()).toFixed(2)
+      const children = [];
+      for (let ii = 0; ii < max; ii++) {
+        children.push({
+          key: format(subDays(this.today, ii), 'YYYY-MM-DD'),
+          value: (ii + i + Math.random()).toFixed(2)
+        });
+      }
+      list.push({
+        name: '颜色' + (i + 1),
+        children
       });
     }
-    list.push({
-      name: '柱状图',
-      children
-    });
-    console.log(list);
     this.barData.list = list;
   }
 

@@ -1,6 +1,4 @@
 // chart color lib
-// export const ColorLib = ['#23A597', '#0A689C', '#0BB2DD', '#EF494A',
-//   '#F9D827', '#C26CB1', '#473E86', '#C4E09F', '#14497F', '#998DB7', '#1B676B'];
 export const ColorLib = [];
 
 // line

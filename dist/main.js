@@ -74,7 +74,7 @@ module.exports = "<div class=\"app-wrapper\">\n  <app-header (headerReset)=\"hea
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".app-wrapper {\n  min-width: 1000px; }\n  .app-wrapper .app-content {\n    display: flex;\n    height: calc(100vh - 60px);\n    background-color: #f8f8f8; }\n  .app-wrapper .app-content .content-palette {\n      flex-shrink: 0;\n      overflow: auto;\n      padding: 24px;\n      width: 24%;\n      min-width: 240px;\n      border-right: 1px solid #E9EBF1;\n      background-color: #fff; }\n  .app-wrapper .app-content .content-main {\n      flex-grow: 1;\n      margin: 20px 0 20px 20px;\n      width: 52%; }\n  .app-wrapper .app-content .content-main .main-graph {\n        margin-bottom: 20px;\n        height: calc((100vh - 60px - 60px) / 2);\n        box-shadow: 0 4px 6px 0 rgba(31, 31, 31, 0.05), 0 0 2px 0 rgba(31, 31, 31, 0.2);\n        border-radius: 2px;\n        background-color: #fff; }\n  .app-wrapper .app-content .content-main .main-chart {\n        overflow: auto;\n        height: calc((100vh - 60px - 60px) / 2);\n        box-shadow: 0 4px 6px 0 rgba(31, 31, 31, 0.05), 0 0 2px 0 rgba(31, 31, 31, 0.2);\n        border-radius: 2px;\n        background-color: #fff; }\n  .app-wrapper .app-content .content-stack {\n      flex-shrink: 0;\n      margin: 20px;\n      width: 24%;\n      min-width: 240px;\n      box-shadow: 0 4px 6px 0 rgba(31, 31, 31, 0.05), 0 0 2px 0 rgba(31, 31, 31, 0.2);\n      border-radius: 2px;\n      background-color: #fff; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9nYW9tZC9Eb2N1bWVudHMvZ2l0aHViL2NvbG9yYm94L3NyYy9hcHAvYXBwLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUNBO0VBQ0UsaUJBQWlCLEVBQUE7RUFEbkI7SUFHSSxhQUFhO0lBQ2IsMEJBQW9DO0lBQ3BDLHlCQUF5QixFQUFBO0VBTDdCO01BT00sY0FBYztNQUNkLGNBQWM7TUFDZCxhQUFhO01BQ2IsVUFBVTtNQUNWLGdCQUFnQjtNQUNoQiwrQkFBK0I7TUFDL0Isc0JBQXNCLEVBQUE7RUFiNUI7TUFnQk0sWUFBWTtNQUNaLHdCQUF3QjtNQUN4QixVQUFVLEVBQUE7RUFsQmhCO1FBb0JRLG1CQUFtQjtRQUNuQix1Q0FBaUQ7UUFDakQsK0VBQWdGO1FBQ2hGLGtCQUFrQjtRQUNsQixzQkFBc0IsRUFBQTtFQXhCOUI7UUEyQlEsY0FBYztRQUNkLHVDQUFpRDtRQUNqRCwrRUFBZ0Y7UUFDaEYsa0JBQWtCO1FBQ2xCLHNCQUFzQixFQUFBO0VBL0I5QjtNQW1DTSxjQUFjO01BQ2QsWUFBWTtNQUNaLFVBQVU7TUFDVixnQkFBZ0I7TUFDaEIsK0VBQWdGO01BQ2hGLGtCQUFrQjtNQUNsQixzQkFBc0IsRUFBQSIsImZpbGUiOiJzcmMvYXBwL2FwcC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIiR0b3AtaGVpZ2h0OiA2MHB4O1xuLmFwcC13cmFwcGVyIHtcbiAgbWluLXdpZHRoOiAxMDAwcHg7XG4gIC5hcHAtY29udGVudCB7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICBoZWlnaHQ6IGNhbGMoMTAwdmggLSAjeyR0b3AtaGVpZ2h0fSk7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogI2Y4ZjhmODtcbiAgICAuY29udGVudC1wYWxldHRlIHtcbiAgICAgIGZsZXgtc2hyaW5rOiAwO1xuICAgICAgb3ZlcmZsb3c6IGF1dG87XG4gICAgICBwYWRkaW5nOiAyNHB4O1xuICAgICAgd2lkdGg6IDI0JTtcbiAgICAgIG1pbi13aWR0aDogMjQwcHg7XG4gICAgICBib3JkZXItcmlnaHQ6IDFweCBzb2xpZCAjRTlFQkYxO1xuICAgICAgYmFja2dyb3VuZC1jb2xvcjogI2ZmZjtcbiAgICB9XG4gICAgLmNvbnRlbnQtbWFpbiB7XG4gICAgICBmbGV4LWdyb3c6IDE7XG4gICAgICBtYXJnaW46IDIwcHggMCAyMHB4IDIwcHg7XG4gICAgICB3aWR0aDogNTIlO1xuICAgICAgLm1haW4tZ3JhcGgge1xuICAgICAgICBtYXJnaW4tYm90dG9tOiAyMHB4O1xuICAgICAgICBoZWlnaHQ6IGNhbGMoKDEwMHZoIC0gNjBweCAtICN7JHRvcC1oZWlnaHR9KSAvIDIpO1xuICAgICAgICBib3gtc2hhZG93OiAwIDRweCA2cHggMCByZ2JhKDMxLCAzMSwgMzEsIDAuMDUpLCAwIDAgMnB4IDAgcmdiYSgzMSwgMzEsIDMxLCAwLjIwKTtcbiAgICAgICAgYm9yZGVyLXJhZGl1czogMnB4O1xuICAgICAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjZmZmO1xuICAgICAgfVxuICAgICAgLm1haW4tY2hhcnQge1xuICAgICAgICBvdmVyZmxvdzogYXV0bztcbiAgICAgICAgaGVpZ2h0OiBjYWxjKCgxMDB2aCAtIDYwcHggLSAjeyR0b3AtaGVpZ2h0fSkgLyAyKTtcbiAgICAgICAgYm94LXNoYWRvdzogMCA0cHggNnB4IDAgcmdiYSgzMSwgMzEsIDMxLCAwLjA1KSwgMCAwIDJweCAwIHJnYmEoMzEsIDMxLCAzMSwgMC4yMCk7XG4gICAgICAgIGJvcmRlci1yYWRpdXM6IDJweDtcbiAgICAgICAgYmFja2dyb3VuZC1jb2xvcjogI2ZmZjtcbiAgICAgIH1cbiAgICB9XG4gICAgLmNvbnRlbnQtc3RhY2sge1xuICAgICAgZmxleC1zaHJpbms6IDA7XG4gICAgICBtYXJnaW46IDIwcHg7XG4gICAgICB3aWR0aDogMjQlO1xuICAgICAgbWluLXdpZHRoOiAyNDBweDtcbiAgICAgIGJveC1zaGFkb3c6IDAgNHB4IDZweCAwIHJnYmEoMzEsIDMxLCAzMSwgMC4wNSksIDAgMCAycHggMCByZ2JhKDMxLCAzMSwgMzEsIDAuMjApO1xuICAgICAgYm9yZGVyLXJhZGl1czogMnB4O1xuICAgICAgYmFja2dyb3VuZC1jb2xvcjogI2ZmZjtcbiAgICB9XG4gIH1cbn1cbiJdfQ== */"
+module.exports = ".app-wrapper {\n  min-width: 1000px; }\n  .app-wrapper .app-content {\n    display: flex;\n    height: calc(100vh - 60px);\n    background-color: #f8f8f8; }\n  .app-wrapper .app-content .content-palette {\n      flex-shrink: 0;\n      overflow: auto;\n      padding: 24px;\n      width: 24%;\n      min-width: 240px;\n      border-right: 1px solid #E9EBF1;\n      background-color: #fff; }\n  .app-wrapper .app-content .content-main {\n      flex-grow: 1;\n      margin: 20px 0 20px 20px;\n      width: 52%; }\n  .app-wrapper .app-content .content-main .main-graph {\n        margin-bottom: 20px;\n        height: calc((100vh - 60px - 60px) / 2);\n        box-shadow: 0 4px 6px 0 rgba(31, 31, 31, 0.05), 0 0 2px 0 rgba(31, 31, 31, 0.2);\n        border-radius: 2px;\n        background-color: #fff; }\n  .app-wrapper .app-content .content-main .main-chart {\n        height: calc((100vh - 60px - 60px) / 2);\n        box-shadow: 0 4px 6px 0 rgba(31, 31, 31, 0.05), 0 0 2px 0 rgba(31, 31, 31, 0.2);\n        border-radius: 2px;\n        background-color: #fff; }\n  .app-wrapper .app-content .content-stack {\n      flex-shrink: 0;\n      margin: 20px;\n      width: 24%;\n      min-width: 240px;\n      box-shadow: 0 4px 6px 0 rgba(31, 31, 31, 0.05), 0 0 2px 0 rgba(31, 31, 31, 0.2);\n      border-radius: 2px;\n      background-color: #fff; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9nYW9tZC9Eb2N1bWVudHMvZ2l0aHViL2NvbG9yYm94L3NyYy9hcHAvYXBwLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUNBO0VBQ0UsaUJBQWlCLEVBQUE7RUFEbkI7SUFHSSxhQUFhO0lBQ2IsMEJBQW9DO0lBQ3BDLHlCQUF5QixFQUFBO0VBTDdCO01BT00sY0FBYztNQUNkLGNBQWM7TUFDZCxhQUFhO01BQ2IsVUFBVTtNQUNWLGdCQUFnQjtNQUNoQiwrQkFBK0I7TUFDL0Isc0JBQXNCLEVBQUE7RUFiNUI7TUFnQk0sWUFBWTtNQUNaLHdCQUF3QjtNQUN4QixVQUFVLEVBQUE7RUFsQmhCO1FBb0JRLG1CQUFtQjtRQUNuQix1Q0FBaUQ7UUFDakQsK0VBQWdGO1FBQ2hGLGtCQUFrQjtRQUNsQixzQkFBc0IsRUFBQTtFQXhCOUI7UUEyQlEsdUNBQWlEO1FBQ2pELCtFQUFnRjtRQUNoRixrQkFBa0I7UUFDbEIsc0JBQXNCLEVBQUE7RUE5QjlCO01Ba0NNLGNBQWM7TUFDZCxZQUFZO01BQ1osVUFBVTtNQUNWLGdCQUFnQjtNQUNoQiwrRUFBZ0Y7TUFDaEYsa0JBQWtCO01BQ2xCLHNCQUFzQixFQUFBIiwiZmlsZSI6InNyYy9hcHAvYXBwLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiJHRvcC1oZWlnaHQ6IDYwcHg7XG4uYXBwLXdyYXBwZXIge1xuICBtaW4td2lkdGg6IDEwMDBweDtcbiAgLmFwcC1jb250ZW50IHtcbiAgICBkaXNwbGF5OiBmbGV4O1xuICAgIGhlaWdodDogY2FsYygxMDB2aCAtICN7JHRvcC1oZWlnaHR9KTtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjZjhmOGY4O1xuICAgIC5jb250ZW50LXBhbGV0dGUge1xuICAgICAgZmxleC1zaHJpbms6IDA7XG4gICAgICBvdmVyZmxvdzogYXV0bztcbiAgICAgIHBhZGRpbmc6IDI0cHg7XG4gICAgICB3aWR0aDogMjQlO1xuICAgICAgbWluLXdpZHRoOiAyNDBweDtcbiAgICAgIGJvcmRlci1yaWdodDogMXB4IHNvbGlkICNFOUVCRjE7XG4gICAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjZmZmO1xuICAgIH1cbiAgICAuY29udGVudC1tYWluIHtcbiAgICAgIGZsZXgtZ3JvdzogMTtcbiAgICAgIG1hcmdpbjogMjBweCAwIDIwcHggMjBweDtcbiAgICAgIHdpZHRoOiA1MiU7XG4gICAgICAubWFpbi1ncmFwaCB7XG4gICAgICAgIG1hcmdpbi1ib3R0b206IDIwcHg7XG4gICAgICAgIGhlaWdodDogY2FsYygoMTAwdmggLSA2MHB4IC0gI3skdG9wLWhlaWdodH0pIC8gMik7XG4gICAgICAgIGJveC1zaGFkb3c6IDAgNHB4IDZweCAwIHJnYmEoMzEsIDMxLCAzMSwgMC4wNSksIDAgMCAycHggMCByZ2JhKDMxLCAzMSwgMzEsIDAuMjApO1xuICAgICAgICBib3JkZXItcmFkaXVzOiAycHg7XG4gICAgICAgIGJhY2tncm91bmQtY29sb3I6ICNmZmY7XG4gICAgICB9XG4gICAgICAubWFpbi1jaGFydCB7XG4gICAgICAgIGhlaWdodDogY2FsYygoMTAwdmggLSA2MHB4IC0gI3skdG9wLWhlaWdodH0pIC8gMik7XG4gICAgICAgIGJveC1zaGFkb3c6IDAgNHB4IDZweCAwIHJnYmEoMzEsIDMxLCAzMSwgMC4wNSksIDAgMCAycHggMCByZ2JhKDMxLCAzMSwgMzEsIDAuMjApO1xuICAgICAgICBib3JkZXItcmFkaXVzOiAycHg7XG4gICAgICAgIGJhY2tncm91bmQtY29sb3I6ICNmZmY7XG4gICAgICB9XG4gICAgfVxuICAgIC5jb250ZW50LXN0YWNrIHtcbiAgICAgIGZsZXgtc2hyaW5rOiAwO1xuICAgICAgbWFyZ2luOiAyMHB4O1xuICAgICAgd2lkdGg6IDI0JTtcbiAgICAgIG1pbi13aWR0aDogMjQwcHg7XG4gICAgICBib3gtc2hhZG93OiAwIDRweCA2cHggMCByZ2JhKDMxLCAzMSwgMzEsIDAuMDUpLCAwIDAgMnB4IDAgcmdiYSgzMSwgMzEsIDMxLCAwLjIwKTtcbiAgICAgIGJvcmRlci1yYWRpdXM6IDJweDtcbiAgICAgIGJhY2tncm91bmQtY29sb3I6ICNmZmY7XG4gICAgfVxuICB9XG59XG4iXX0= */"
 
 /***/ }),
 
@@ -254,10 +254,10 @@ __webpack_require__.r(__webpack_exports__);
 var ColorChartComponent = /** @class */ (function () {
     function ColorChartComponent() {
         var _this = this;
-        this.radioValue = 'line';
+        this.radioValue = 'bar';
         this.radioData = [
             { label: '折线图', value: 'line' },
-            // { label: '柱状图', value: 'bar' },
+            { label: '柱状图', value: 'bar' },
             { label: '饼图', value: 'pie' },
         ];
         this.today = new Date();
@@ -270,7 +270,7 @@ var ColorChartComponent = /** @class */ (function () {
                 options.color = _this.colorList;
             }
         };
-        // 折线图
+        // 柱状图
         this.barData = {
             list: [],
             status: null,
@@ -286,7 +286,7 @@ var ColorChartComponent = /** @class */ (function () {
                 name: '颜色分布'
             },
             optionsInit: function (options) {
-                // options.color = this.colorList;
+                options.color = _this.colorList;
             }
         };
         // 箱型矩图
@@ -299,7 +299,7 @@ var ColorChartComponent = /** @class */ (function () {
                 }
             },
             optionsInit: function (options) {
-                // options.color = this.colorList;
+                options.color = _this.colorList;
             }
         };
     }
@@ -356,19 +356,21 @@ var ColorChartComponent = /** @class */ (function () {
     };
     ColorChartComponent.prototype.changeBarData = function () {
         var list = [];
+        var max = 1;
         var count = this.colorList.length;
-        var children = [];
         for (var i = 0; i < count; i++) {
-            children.push({
-                key: '颜色' + (i + 1),
-                value: (i + Math.random()).toFixed(2)
+            var children = [];
+            for (var ii = 0; ii < max; ii++) {
+                children.push({
+                    key: Object(date_fns__WEBPACK_IMPORTED_MODULE_2__["format"])(Object(date_fns__WEBPACK_IMPORTED_MODULE_2__["subDays"])(this.today, ii), 'YYYY-MM-DD'),
+                    value: (ii + i + Math.random()).toFixed(2)
+                });
+            }
+            list.push({
+                name: '颜色' + (i + 1),
+                children: children
             });
         }
-        list.push({
-            name: '柱状图',
-            children: children
-        });
-        console.log(list);
         this.barData.list = list;
     };
     ColorChartComponent.prototype.changePieData = function () {
@@ -4365,8 +4367,7 @@ var BarConfig = /** @class */ (function () {
                 };
                 return item;
             }),
-            // color: ColorLib
-            color: ['blue']
+            color: _ng_echarts_model__WEBPACK_IMPORTED_MODULE_0__["ColorLib"]
         };
         return defaultOptions;
     };
@@ -5724,8 +5725,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LineLegendIconPath", function() { return LineLegendIconPath; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TooltipBgColor", function() { return TooltipBgColor; });
 // chart color lib
-// export const ColorLib = ['#23A597', '#0A689C', '#0BB2DD', '#EF494A',
-//   '#F9D827', '#C26CB1', '#473E86', '#C4E09F', '#14497F', '#998DB7', '#1B676B'];
 var ColorLib = [];
 // line
 var LineLegendIconPath = "path://M7.1,4C7.6,1.7,9.6,0,12,0s4.4,1.7,\n  4.9,4H24v2h-7.1c-0.5,2.3-2.5,4-4.9,4S7.6,8.3,7.1,6H0 V4H7.1z M12,8c1.7,0,3-1.3,3-3s-1.3-3-3-3S9,3.3,9,5S10.3,8,12,8z";

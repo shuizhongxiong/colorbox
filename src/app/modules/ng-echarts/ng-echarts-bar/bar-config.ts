@@ -105,8 +105,7 @@ export class BarConfig {
         };
         return item;
       }),
-      // color: ColorLib
-      color: ['blue']
+      color: ColorLib
     };
     return defaultOptions;
   }

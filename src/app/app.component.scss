@@ -26,7 +26,6 @@ $top-height: 60px;
         background-color: #fff;
       }
       .main-chart {
-        overflow: auto;
         height: calc((100vh - 60px - #{$top-height}) / 2);
         box-shadow: 0 4px 6px 0 rgba(31, 31, 31, 0.05), 0 0 2px 0 rgba(31, 31, 31, 0.20);
         border-radius: 2px;
