@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewEncapsulation, Input } from '@angular/core';
 
 import * as CURVES from './coloralgorithm/curves.js';
 import * as GENERATE from './coloralgorithm/generate.js';
@@ -75,29 +75,30 @@ export class ColorPaletteComponent implements OnInit {
     endMax: 100
   };
   curves = Object.keys(CURVES);
-  graph = 'sat';
   result = [];
 
-  @Output() resultChange: EventEmitter<any[]> = new EventEmitter();
-  @Output() graphChange: EventEmitter<string> = new EventEmitter();
+  @Input() graph = 'hue';
+  @Output()
+  graphChange: EventEmitter<string> = new EventEmitter();
+  @Output()
+  resultChange: EventEmitter<any[]> = new EventEmitter();
 
   ngOnInit() {
     this.valueChange('', 'lock_hex');
   }
 
   valueChange(value: any, key: string) {
-    this.values[key] = value;
-    this.result = GENERATE.generate(this.values);
-    this.resultChange.emit(this.result);
-
     // 更改图表类型
     let type = key.substring(0, 3);
     if (type !== 'hue' && type !== 'sat' && type !== 'lum') {
       type = this.graph;
     }
     this.chageGraph(type);
-
     this.handleMinorSteps();
+
+    this.values[key] = value;
+    this.result = GENERATE.generate(this.values);
+    this.resultChange.emit(this.result);
   }
 
   chageGraph(key: string) {

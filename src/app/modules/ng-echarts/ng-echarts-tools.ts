@@ -1,4 +1,8 @@
-export class Tool {
+export class Tools {
+  public static deepClone(obj) {
+    return JSON.parse(JSON.stringify(obj));
+  }
+
   public static getNumberUnits(value) {
     const units = ['K', 'M', 'B', 'T', 'P', 'E'];
     const vLen = parseInt(value, 10).toString().length;
@@ -26,7 +30,7 @@ export class Tool {
   public static chartYLabelFormatter(type: string) {
     if (type === 'largeNum') {
       return (value => {
-        return Tool.getNumberUnits(value);
+        return Tools.getNumberUnits(value);
       });
     } else if (type === 'percent') {
       return (value => {

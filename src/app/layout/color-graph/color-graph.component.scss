@@ -1,17 +1,31 @@
 .app-color-graph {
   overflow: auto hidden;
   height: 100%;
-  .graph-title {
-    font-size: 18px;
-    font-weight: bold;
-    color: #292936;
+  background-image: linear-gradient(rgba(244, 244, 250, 0.8) 1px, transparent 0), linear-gradient(#f4f4fa 1px, transparent 0), linear-gradient(90deg, rgba(244, 244, 250, 0.8) 1px, transparent 0), linear-gradient(90deg, #f4f4fa 1px, transparent 0), linear-gradient(transparent 3px, #fff 0, #fff 94px, transparent 0), linear-gradient(90deg, #f4f4fa 3px, transparent 0, transparent 94px, #f4f4fa 0);
+  background-size: 24px 24px, 96px 96px, 24px 24px, 96px 96px, 96px 96px, 96px 96px;
+  .graph-nav {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border-bottom: 1px solid #E9EBF1;
+    .nav-item {
+      margin-left: 24px;
+      font-size: 14px;
+      color: #333333;
+      cursor: pointer;
+      &.selected {
+        font-size: 14px;
+        color: #5D60E6;
+        box-shadow: 0 1px 0;
+      }
+    }
   }
   .graph-dots {
     display: flex;
     justify-content: space-between;
-    height: calc(100% - 62px);
-    background-image: linear-gradient(rgba(244, 244, 250, 0.8) 1px, transparent 0), linear-gradient(#f4f4fa 1px, transparent 0), linear-gradient(90deg, rgba(244, 244, 250, 0.8) 1px, transparent 0), linear-gradient(90deg, #f4f4fa 1px, transparent 0), linear-gradient(transparent 3px, #fff 0, #fff 94px, transparent 0), linear-gradient(90deg, #f4f4fa 3px, transparent 0, transparent 94px, #f4f4fa 0);
-        background-size: 24px 24px, 96px 96px, 24px 24px, 96px 96px, 96px 96px, 96px 96px;
+    height: calc(100% - 88px);
+    padding: 12px;
     .dots {
       display: flex;
       justify-content: center;
@@ -31,14 +45,12 @@
         text-overflow: ellipsis;
         width: 100%;
         position: absolute;
-        font-size: 12px;
         font-weight: 700;
         line-height: 25px;
         text-align: center;
       }
       .dot-value {
         margin-top: 32px;
-        font-size: 12px;
         font-weight: 700;
         color: #292936;
       }

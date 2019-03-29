@@ -1,5 +1,9 @@
 <div class="app-color-graph">
-  <div class="graph-title">{{graphLabel}}</div>
+  <div class="graph-nav">
+    <div class="nav-item" *ngFor="let data of navData"
+      [class.selected]="data.value === graph"
+      (click)="navChange(data.value)">{{data.label}}</div>
+  </div>
   <div class="graph-dots">
     <div class="dots" *ngFor="let dot of dotList" [style.top]="dot.top"
       [style.backgroundColor]="dot.backgroundColor" [class.lock]="dot.lock">

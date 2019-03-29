@@ -35,7 +35,7 @@ export class LineConfig {
         data: this.legendList
       },
       grid: {
-        top: 36,
+        top: 12,
         left: 'left',
         right: 0,
         bottom: 28,
@@ -52,8 +52,8 @@ export class LineConfig {
         },
         axisLabel: {
           color: '#9A9FA8',
-          fontSize: 14,
-          margin: 16
+          fontSize: 12,
+          margin: 16,
         },
         data: this.xAxisList
       },
@@ -69,7 +69,7 @@ export class LineConfig {
           },
           axisLabel: {
             color: '#9A9FA8',
-            fontSize: 14
+            fontSize: 12
           },
           splitLine: {
             lineStyle: {
@@ -89,7 +89,7 @@ export class LineConfig {
           },
           axisLabel: {
             color: '#9A9FA8',
-            fontSize: 14
+            fontSize: 12
           },
           splitLine: {
             show: false,
@@ -112,19 +112,16 @@ export class LineConfig {
           borderWidth: 2
         };
         item.animationDuration = 500;
-
         // 数据只有1条时，加上区域阴影
         if (this.seriesList.length === 1) {
           item.areaStyle = {
             opacity: 0.1
           };
         }
-
         return item;
       }),
-      // color: ColorLib
+      color: ColorLib
     };
     return options;
   }
-
 }

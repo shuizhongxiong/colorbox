@@ -1,9 +1,21 @@
 <div class="app-color-chart">
-  <ng-echarts-line height="100%" [data]="lineData.list"
-    (chartInit)="lineData.chartInit($event)"></ng-echarts-line>
-  <nz-divider></nz-divider>
-  <ng-echarts-pie height="100%" [dataConfig]="pieData.config"
-    [data]="pieData.list" (chartInit)="pieData.chartInit($event)">
-  </ng-echarts-pie>
-  <nz-divider></nz-divider>
+  <div class="chart-header clearfloat">
+    <div class="float-left">图表测试</div>
+    <div class="float-right">
+      <nz-radio-group nzSize="small" [(ngModel)]="radioValue"
+        (ngModelChange)="radioChange($event)">
+        <label nz-radio-button *ngFor="let data of radioData"
+          [nzValue]="data.value">{{data.label}}</label>
+      </nz-radio-group>
+    </div>
+  </div>
+  <div class="chart-content">
+    <ng-echarts-line *ngIf="radioValue === 'line'" height="100%"
+      [status]="lineData.status" [data]="lineData.list"
+      (optionsInit)="lineData.optionsInit($event)"></ng-echarts-line>
+    <ng-echarts-pie *ngIf="radioValue === 'pie'" height="100%"
+      [status]="pieData.status" [dataConfig]="pieData.config"
+      [data]="pieData.list" (optionsInit)="pieData.optionsInit($event)">
+    </ng-echarts-pie>
+  </div>
 </div>

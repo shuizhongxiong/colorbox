@@ -9,7 +9,7 @@ import { NzModalService } from 'ng-zorro-antd';
 export class AppComponent {
   title = 'colorbox';
   result = [];
-  graph = '';
+  graph = 'hue';
 
   constructor(private modalService: NzModalService) { }
 
@@ -17,10 +17,6 @@ export class AppComponent {
     if (data && Array.isArray(data)) {
       this.result = [...data];
     }
-  }
-
-  graphChange(value) {
-    this.graph = value;
   }
 
   headerReset() {

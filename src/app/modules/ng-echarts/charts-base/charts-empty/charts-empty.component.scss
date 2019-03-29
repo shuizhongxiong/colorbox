@@ -1,0 +1,32 @@
+charts-empty {
+  .charts-empty {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    .empty-overlay {
+      overflow: hidden;
+      z-index: 999;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      pointer-events: none;
+      user-select: none;
+    }
+    nz-empty {
+      position: absolute;
+      z-index: 1000;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}

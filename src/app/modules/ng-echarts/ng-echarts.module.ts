@@ -15,14 +15,14 @@ import { NgEchartsPieComponent } from './ng-echarts-pie/ng-echarts-pie.component
     CommonModule,
     NgZorroAntdModule
   ],
-  exports: [
-    NgEchartsComponent,
-    NgEchartsLineComponent,
-    NgEchartsPieComponent,
-  ],
   declarations: [
     ChartsEmptyComponent,
     ChartsLoadingComponent,
+    NgEchartsComponent,
+    NgEchartsLineComponent,
+    NgEchartsPieComponent
+  ],
+  exports: [
     NgEchartsComponent,
     NgEchartsLineComponent,
     NgEchartsPieComponent

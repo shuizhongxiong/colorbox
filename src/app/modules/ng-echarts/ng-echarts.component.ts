@@ -10,13 +10,13 @@ import { init, ECharts, EChartOption } from 'echarts';
   selector: 'ng-echarts',
   template: `
 		<div class="echarts-container" #chartEl></div>
-		<charts-loading
-			[isLoading]="isLoading"
+    <charts-loading
+      *ngIf="status === 'loading'"
 			[size]="loadingSize"
 			[tip]="loadingTip"></charts-loading>
-		<charts-empty
-			[isShow]="isShowEmpty"
-			[emptyText]="emptyText"></charts-empty>
+    <charts-empty
+      *ngIf="status === 'empty'"
+			[tip]="emptyTip"></charts-empty>
 	`,
   styles: [`
 		:host() {
@@ -33,15 +33,12 @@ export class NgEchartsComponent implements OnInit, OnChanges, AfterViewInit, OnD
   private domEl: HTMLElement;
   private chart: ECharts;
   private destroy$ = new Subject<void>();
-  private reaction: any;
-  isLoading = true;
+  private isFinished = false;
 
+  @Input() status: 'loading' | 'empty' | null = null;
   @Input() loadingSize = 'default';
   @Input() loadingTip = 'Loading...';
-
-  @Input() isShowEmpty = false;
-  @Input() emptyText = '暂无数据';
-
+  @Input() emptyTip = '暂无数据';
   @Input() height: number | string = 400;
   @Input() width: number | string = '100%';
 
@@ -103,10 +100,16 @@ export class NgEchartsComponent implements OnInit, OnChanges, AfterViewInit, OnD
     this.initChart();
   }
 
-  ngOnChanges({ isShowEmpty, options }: SimpleChanges) {
-    if (this.isShowEmpty || (isShowEmpty && isShowEmpty.currentValue)) {
-      this.disposeChart();
-    } else if (options && options.currentValue && !options.firstChange) {
+  ngOnChanges({ status, options }: SimpleChanges) {
+    if (status && status.currentValue !== status.previousValue) {
+      if (status.currentValue === 'empty') {
+        if (this.chart) {
+          this.chart.clear();
+        }
+        return false;
+      }
+    }
+    if (options && options.currentValue && !options.firstChange) {
       this.onOptionsChange(options.currentValue);
     }
   }
@@ -146,23 +149,24 @@ export class NgEchartsComponent implements OnInit, OnChanges, AfterViewInit, OnD
     if (!opt) {
       return;
     }
-    this.isLoading = true;
     if (!this.chart) {
+      this.isFinished = false;
       this.destroy$ = new Subject<void>();
       this.chart = this.createChart();
       this.addEventHandle();
       if (this.autoResize) {
         this.listenResize();
       }
-      this.chartInit.emit(this.chart);
+      // 渲染结束执行一下图表自适应，防止视图大小改变
+      this.chart.on('finished', () => {
+        if (!this.isFinished) {
+          this.chart.resize();
+          this.isFinished = true;
+          this.chartInit.emit(this.chart);
+        }
+      });
     }
     this.chart.setOption(opt, true);
-    setTimeout(() => {
-      if (this.chart) {
-        this.chart.resize();
-        this.isLoading = false;
-      }
-    }, 0);
   }
 
   private createChart() {
@@ -219,14 +223,8 @@ export class NgEchartsComponent implements OnInit, OnChanges, AfterViewInit, OnD
   }
 
   private disposeChart() {
-    this.isLoading = false;
-
     this.destroy$.next();
     this.destroy$.complete();
-
-    if (this.reaction) {
-      this.reaction.dispose();
-    }
 
     if (this.chart) {
       this.chart.dispose();

@@ -4,7 +4,7 @@ $top-height: 60px;
   .app-content {
     display: flex;
     height: calc(100vh - #{$top-height});
-    background-color: #fff;
+    background-color: #f8f8f8;
     .content-palette {
       flex-shrink: 0;
       overflow: auto;
@@ -21,12 +21,14 @@ $top-height: 60px;
         height: calc((100vh - 60px - #{$top-height}) / 2);
         box-shadow: 0 4px 6px 0 rgba(31, 31, 31, 0.05), 0 0 2px 0 rgba(31, 31, 31, 0.20);
         border-radius: 2px;
+        background-color: #fff;
       }
       .main-chart {
         overflow: auto;
         height: calc((100vh - 60px - #{$top-height}) / 2);
         box-shadow: 0 4px 6px 0 rgba(31, 31, 31, 0.05), 0 0 2px 0 rgba(31, 31, 31, 0.20);
         border-radius: 2px;
+        background-color: #fff;
       }
     }
     .content-stack {
@@ -36,6 +38,7 @@ $top-height: 60px;
       min-width: 240px;
       box-shadow: 0 4px 6px 0 rgba(31, 31, 31, 0.05), 0 0 2px 0 rgba(31, 31, 31, 0.20);
       border-radius: 2px;
+      background-color: #fff;
     }
   }
 }

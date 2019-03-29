@@ -8,7 +8,7 @@ import { NgZorroAntdModule, NZ_I18N, zh_CN } from 'ng-zorro-antd';
 import zh from '@angular/common/locales/zh';
 
 import { AppRoutingModule } from './app-routing.module';
-import { NgEchartsModule } from './core/ng-echarts';
+import { NgEchartsModule } from './modules/ng-echarts';
 
 import { AppComponent } from './app.component';
 import { ColorChartComponent } from './layout/color-chart/color-chart.component';

@@ -3,13 +3,12 @@
   </app-header>
   <div class="app-content">
     <div class="content-palette">
-      <app-color-palette (resultChange)="resultChange($event)"
-        (graphChange)="graphChange($event)">
+      <app-color-palette (resultChange)="resultChange($event)" [(graph)]="graph">
       </app-color-palette>
     </div>
     <div class="content-main">
       <div class="main-graph">
-        <app-color-graph [result]="result" [graph]="graph"></app-color-graph>
+        <app-color-graph [result]="result" [(graph)]="graph"></app-color-graph>
       </div>
       <div class="main-chart">
         <app-color-chart [result]="result"></app-color-chart>

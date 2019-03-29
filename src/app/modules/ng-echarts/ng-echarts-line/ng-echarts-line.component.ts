@@ -1,7 +1,7 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { EChartOption } from 'echarts';
 
-import { Tool } from '../tool';
+import { Tools } from '../ng-echarts-tools';
 import { LineConfig } from './line-config';
 
 @Component({
@@ -11,16 +11,17 @@ import { LineConfig } from './line-config';
 			[height]="height"
 			[width]="width"
 			[options]="options"
+      [status]="status"
 			[loadingSize]="loadingSize"
-			[loadingTip]="loadingTip"
-			[isShowEmpty]="isShowEmpty"
-			[emptyText]="emptyText"
-			(chartInit)='onChartInit($event)'>
+      [loadingTip]="loadingTip"
+			[emptyTip]="emptyTip"
+			(chartInit)="onChartInit($event)">
 		</ng-echarts>`
 })
-export class NgEchartsLineComponent {
+export class NgEchartsLineComponent implements OnChanges {
   options: EChartOption;
   tooltipConfigs: any[] = [];
+  private dataTmp: any;
 
   /**
 	 * @description {object} 数据配置 - 会在原始数据里寻找
@@ -40,13 +41,6 @@ export class NgEchartsLineComponent {
     valueRightUnit: null,	// {string} tooltip 里增加的单位
   };
 
-  @Input()
-  set dataConfig(data: any) {
-    if (data) {
-      Object.assign(this._dataConfig, data);
-    }
-  }
-
   /**
 	 * @description {array} 原始数据
 	 * @example 标准格式
@@ -54,28 +48,36 @@ export class NgEchartsLineComponent {
 	 * @example 右 y 轴格式
 	 * [{ nameRight: xxx, tooltipConfig: { type: xxx, unit: xxx, realName: xxx }, children: [{ key: xxx, valueRight: xxx } ]}]
 	 */
-  @Input()
-  set data(data: any[]) {
-    const json = data;
-    if (json && json.length > 0) {
-      this.createOptions(json);
-    }
-  }
+  @Input() data: any[] = [];
 
+  @Input() dataConfig: any;
   @Input() height: number | string;
   @Input() width: number | string;
-
+  @Input() status = null;
   @Input() loadingSize = 'default';
   @Input() loadingTip = 'Loading...';
-
-  @Input() isShowEmpty = false;
-  @Input() emptyText = '暂无数据';
-
+  @Input() emptyTip = '暂无数据';
   @Output()
   optionsInit: EventEmitter<any> = new EventEmitter();
-
   @Output()
   chartInit: EventEmitter<any> = new EventEmitter();
+
+  ngOnChanges({ dataConfig, data }: SimpleChanges) {
+    const isDataConfigChange = (dataConfig && dataConfig.currentValue && dataConfig.currentValue !== dataConfig.previousValue);
+    const isDataChange = (data && data.currentValue && data.currentValue !== data.previousValue);
+    if (isDataConfigChange) {
+      Object.assign(this._dataConfig, dataConfig.currentValue);
+      if (!isDataChange) {
+        this.createOptions(this.dataTmp);
+      }
+    }
+    if (isDataChange) {
+      this.dataTmp = data.currentValue;
+      if (this.dataTmp && this.dataTmp.length > 0) {
+        this.createOptions(this.dataTmp);
+      }
+    }
+  }
 
   private createOptions(data: any[]) {
     const legendList = [];
@@ -144,13 +146,9 @@ export class NgEchartsLineComponent {
       xAxisList,
       seriesList
     );
-
-    // Delay execute to wait for the map size to be initialized.
-    // setTimeout(() => {
     const defaultOptions = lineConfig.getOptions();
     this.options = this.optionsHandle(defaultOptions);
     this.optionsInit.emit(this.options);
-    // }, 0);
   }
 
   private optionsHandle(options: EChartOption): EChartOption {
@@ -161,12 +159,12 @@ export class NgEchartsLineComponent {
         return d;
       });
       const data = params.sort(this.sortData('value', false));
-      return Tool.chartTooltipFormatter(data);
+      return Tools.chartTooltipFormatter(data);
     };
     // 左侧 label 格式化
-    options.yAxis[0].axisLabel.formatter = Tool.chartYLabelFormatter(this._dataConfig.valueType);
+    options.yAxis[0].axisLabel.formatter = Tools.chartYLabelFormatter(this._dataConfig.valueType);
     // 右侧 label 格式化
-    options.yAxis[1].axisLabel.formatter = Tool.chartYLabelFormatter(this._dataConfig.valueRightType);
+    options.yAxis[1].axisLabel.formatter = Tools.chartYLabelFormatter(this._dataConfig.valueRightType);
     return options;
   }
 
@@ -181,8 +179,7 @@ export class NgEchartsLineComponent {
     } else {
       rev = (rev) ? 1 : -1;
     }
-
-    return function (a, b) {
+    return (a, b) => {
       a = +a[type];
       b = +b[type];
       if (a < b) {

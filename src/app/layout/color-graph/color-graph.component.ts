@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, Output, OnChanges, SimpleChanges, EventEmitter } from '@angular/core';
 import * as GENERATE from '../color-palette/coloralgorithm/generate.js';
 
 @Component({
@@ -7,41 +7,27 @@ import * as GENERATE from '../color-palette/coloralgorithm/generate.js';
   styleUrls: ['./color-graph.component.scss']
 })
 export class ColorGraphComponent implements OnChanges {
-  graphLabel = '';
+  navData = [
+    { label: '色相', value: 'hue' },
+    { label: '饱和度', value: 'sat' },
+    { label: '明度', value: 'lum' },
+  ];
   dotList = [];
 
   @Input() result: any[] = [];
-  @Input() graph = '';
+  @Input() graph = 'hue';
+  @Output()
+  graphChange: EventEmitter<string> = new EventEmitter();
 
   ngOnChanges(changes: SimpleChanges) {
-    const { result, graph } = changes;
-    if (graph && graph.currentValue !== graph.previousValue) {
-      this.graphLabel = this.getGraphLabel(graph.currentValue);
-      if (!graph.firstChange) {
-        this.changeDots(this.result, graph.currentValue);
-      }
-    }
-    if (result && result.currentValue) {
-      this.changeDots(result.currentValue, this.graph);
+    if (this.graph && this.result && this.result.length > 0) {
+      this.changeDots(this.result, this.graph);
     }
   }
 
-  private getGraphLabel(value: string): string {
-    let label = '';
-    switch (value) {
-      case 'hue':
-        label = 'Hue';
-        break;
-      case 'sat':
-        label = 'Saturation';
-        break;
-      case 'lum':
-        label = 'Luminosity';
-        break;
-      default:
-        break;
-    }
-    return label;
+  navChange(type) {
+    this.graph = type;
+    this.graphChange.emit(this.graph);
   }
 
   private changeDots(result, graph) {

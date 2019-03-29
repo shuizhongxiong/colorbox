@@ -1,6 +1,7 @@
 // chart color lib
-export const ColorLib = ['#23A597', '#0A689C', '#0BB2DD', '#EF494A',
-  '#F9D827', '#C26CB1', '#473E86', '#C4E09F', '#14497F', '#998DB7', '#1B676B'];
+// export const ColorLib = ['#23A597', '#0A689C', '#0BB2DD', '#EF494A',
+//   '#F9D827', '#C26CB1', '#473E86', '#C4E09F', '#14497F', '#998DB7', '#1B676B'];
+export const ColorLib = [];
 
 // line
 export const LineLegendIconPath = `path://M7.1,4C7.6,1.7,9.6,0,12,0s4.4,1.7,

@@ -7,27 +7,35 @@ import { format, subDays } from 'date-fns';
   styleUrls: ['./color-chart.component.scss']
 })
 export class ColorChartComponent implements OnInit {
+  radioValue = 'bar';
+  radioData = [
+    { label: '折线图', value: 'line' },
+    { label: '柱状图', value: 'bar' },
+    { label: '饼图', value: 'pie' },
+    { label: '箱型矩图', value: 'treemap' }
+  ];
+
   today = new Date();
   colorList: string[] = [];
 
   // 折线图
   lineData = {
-    chart: null,
     list: [],
-    chartInit: (chart) => {
-      this.lineData.chart = chart;
+    status: null,
+    optionsInit: (options) => {
+      options.color = this.colorList;
     }
   };
 
   // 饼图
   pieData = {
-    chart: null,
     list: [],
+    status: null,
     config: {
       name: '数据分布'
     },
-    chartInit: (chart) => {
-      this.pieData.chart = chart;
+    optionsInit: (options) => {
+      options.color = this.colorList;
     }
   };
 
@@ -39,22 +47,25 @@ export class ColorChartComponent implements OnInit {
         list.push(d.hex);
       });
       this.colorList = list;
-      this.changeData();
+      this.radioChange(this.radioValue);
     }
   }
 
   ngOnInit() {
-    this.changeData();
-
-    setTimeout(() => {
-      this.changeColor();
-    }, 0);
+    this.radioChange(this.radioValue);
   }
 
-  private changeData() {
-    this.changeLineData();
-    this.changePieData();
-    this.changeColor();
+  private radioChange(type: string) {
+    switch (type) {
+      case 'line':
+        this.changeLineData();
+        break;
+      case 'pie':
+        this.changePieData();
+        break;
+      default:
+        break;
+    }
   }
 
   private changeLineData() {
@@ -87,19 +98,5 @@ export class ColorChartComponent implements OnInit {
       });
     }
     this.pieData.list = list;
-  }
-
-  private changeColor() {
-    if (!this.lineData.chart) {
-      return false;
-    }
-    setTimeout(() => {
-      this.lineData.chart.setOption({
-        color: this.colorList
-      });
-      this.pieData.chart.setOption({
-        color: this.colorList
-      });
-    }, 0);
   }
 }
