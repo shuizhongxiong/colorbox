@@ -1030,7 +1030,7 @@ var ColorStackComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"header clearfloat\">\n  <div class=\"float-left\">\n    <div class=\"header-logo\">\n      <img src=\"/assets/images/logo.png\" alt=\"极光可视化色彩工具\">\n    </div>\n    <p class=\"header-title\">极光可视化色彩工具</p>\n  </div>\n  <div class=\"float-right\">\n    <button nz-button (click)=\"reset()\">重置</button>\n    <button nz-button nzType=\"primary\" (click)=\"share()\">导出</button>\n  </div>\n</div>\n"
+module.exports = "<div class=\"header clearfloat\">\n  <div class=\"float-left\">\n    <div class=\"header-logo\">\n      <img src=\"./assets/images/logo.png\" alt=\"极光可视化色彩工具\">\n    </div>\n    <p class=\"header-title\">极光可视化色彩工具</p>\n  </div>\n  <div class=\"float-right\">\n    <button nz-button (click)=\"reset()\">重置</button>\n    <button nz-button nzType=\"primary\" (click)=\"share()\">导出</button>\n  </div>\n</div>\n"
 
 /***/ }),
 
