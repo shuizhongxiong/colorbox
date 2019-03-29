@@ -1,18 +1,20 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { format, subDays } from 'date-fns';
 
+import { DeviceBrandData } from './macok-data';
+
 @Component({
   selector: 'app-color-chart',
   templateUrl: './color-chart.component.html',
   styleUrls: ['./color-chart.component.scss']
 })
 export class ColorChartComponent implements OnInit {
-  radioValue = 'bar';
+  radioValue = 'line';
   radioData = [
     { label: '折线图', value: 'line' },
-    { label: '柱状图', value: 'bar' },
+    // { label: '柱状图', value: 'bar' },
     { label: '饼图', value: 'pie' },
-    { label: '箱型矩图', value: 'treemap' }
+    // { label: '箱型矩图', value: 'treemap' }
   ];
 
   today = new Date();
@@ -27,15 +29,39 @@ export class ColorChartComponent implements OnInit {
     }
   };
 
+  // 折线图
+  barData = {
+    list: [],
+    status: null,
+    optionsInit: (options) => {
+      options.color = this.colorList;
+    }
+  };
+
   // 饼图
   pieData = {
     list: [],
     status: null,
     config: {
-      name: '数据分布'
+      name: '颜色分布'
     },
     optionsInit: (options) => {
-      options.color = this.colorList;
+      // options.color = this.colorList;
+    }
+  };
+
+  // 箱型矩图
+  treemapData = {
+    list: DeviceBrandData.children,
+    status: null,
+    config: {
+      tooltipFormatter: (params) => {
+        return `手机品牌：${params.name}<br />
+        			占比：${params.value.toFixed(2)}%`;
+      }
+    },
+    optionsInit: (options) => {
+      // options.color = this.colorList;
     }
   };
 
@@ -60,6 +86,9 @@ export class ColorChartComponent implements OnInit {
       case 'line':
         this.changeLineData();
         break;
+      case 'bar':
+        this.changeBarData();
+        break;
       case 'pie':
         this.changePieData();
         break;
@@ -81,11 +110,29 @@ export class ColorChartComponent implements OnInit {
         });
       }
       list.push({
-        name: '数据' + (i + 1),
+        name: '颜色' + (i + 1),
         children
       });
     }
     this.lineData.list = list;
+  }
+
+  private changeBarData() {
+    const list = [];
+    const count = this.colorList.length;
+    const children = [];
+    for (let i = 0; i < count; i++) {
+      children.push({
+        key: '颜色' + (i + 1),
+        value: (i + Math.random()).toFixed(2)
+      });
+    }
+    list.push({
+      name: '柱状图',
+      children
+    });
+    console.log(list);
+    this.barData.list = list;
   }
 
   private changePieData() {
@@ -93,7 +140,7 @@ export class ColorChartComponent implements OnInit {
     const list = [];
     for (let i = 0; i < count; i++) {
       list.push({
-        key: '数据' + i + 1,
+        key: '颜色' + i + 1,
         value: Math.random()
       });
     }

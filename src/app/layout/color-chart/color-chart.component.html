@@ -13,9 +13,16 @@
     <ng-echarts-line *ngIf="radioValue === 'line'" height="100%"
       [status]="lineData.status" [data]="lineData.list"
       (optionsInit)="lineData.optionsInit($event)"></ng-echarts-line>
+    <ng-echarts-bar *ngIf="radioValue === 'bar'" height="100%"
+      [status]="barData.status" [data]="barData.list"
+      (optionsInit)="barData.optionsInit($event)"></ng-echarts-bar>
     <ng-echarts-pie *ngIf="radioValue === 'pie'" height="100%"
       [status]="pieData.status" [dataConfig]="pieData.config"
       [data]="pieData.list" (optionsInit)="pieData.optionsInit($event)">
     </ng-echarts-pie>
+    <ng-echarts-treemap *ngIf="radioValue === 'treemap'" height="100%"
+      [status]="treemapData.status" [dataConfig]="treemapData.config"
+      [data]="treemapData.list" (optionsInit)="treemapData.optionsInit($event)">
+    </ng-echarts-treemap>
   </div>
 </div>

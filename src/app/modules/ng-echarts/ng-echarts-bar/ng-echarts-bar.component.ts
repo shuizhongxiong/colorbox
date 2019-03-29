@@ -2,10 +2,10 @@ import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from
 import { EChartOption } from 'echarts';
 
 import { Tools } from '../ng-echarts-tools';
-import { LineConfig } from './line-config';
+import { BarConfig } from './bar-config';
 
 @Component({
-  selector: 'ng-echarts-line',
+  selector: 'ng-echarts-bar',
   template: `
 		<ng-echarts
 			[height]="height"
@@ -18,7 +18,7 @@ import { LineConfig } from './line-config';
 			(chartInit)="onChartInit($event)">
 		</ng-echarts>`
 })
-export class NgEchartsLineComponent implements OnChanges {
+export class NgEchartsBarComponent implements OnChanges {
   options: EChartOption;
   tooltipConfigs: any[] = [];
   private dataTmp: any;
@@ -31,13 +31,13 @@ export class NgEchartsLineComponent implements OnChanges {
     children: 'children', // {string} 子数据列表
 
     name: 'name', // {string} 左侧 legend、tooltip
-    type: 'line', // 左侧类型
+    type: 'bar', // 左侧类型
     value: 'value', // {string} 左侧 y 轴
     valueType: 'largeNum', // {string} largeNum: 自动添加大数单位 | percent: * 100 + '%' | percent2: + '%'
     valueUnit: null,	// {string} tooltip 里增加的单位
 
     nameRight: 'nameRight',  // {string} 右侧 legend、tooltip
-    typeRight: 'line', // 左侧类型
+    typeRight: 'bar', // 左侧类型
     valueRight: 'valueRight', // {string} 右侧 y 轴名称，默认空值不显示
     valueRightType: 'percent', // {string} unit: 自动添加大数单位 | percent: * 100 + '%' | percent2: + '%'
     valueRightUnit: null,	// {string} tooltip 里增加的单位
@@ -108,7 +108,7 @@ export class NgEchartsLineComponent implements OnChanges {
           });
         }
         const seriesData: any = {
-          type: this._dataConfig.type || 'line',
+          type: this._dataConfig.type || 'bar',
           name: leftName,
           data: series
         };
@@ -131,7 +131,7 @@ export class NgEchartsLineComponent implements OnChanges {
           });
         }
         const seriesRightData: any = {
-          type: this._dataConfig.typeRight || 'line',
+          type: this._dataConfig.typeRight || 'bar',
           name: rightName,
           data: seriesRight,
           yAxisIndex: 1
@@ -140,12 +140,12 @@ export class NgEchartsLineComponent implements OnChanges {
       }
     });
     xAxisList = Array.from(xAxisList);
-    const lineConfig = new LineConfig(
+    const barConfig = new BarConfig(
       legendList,
       xAxisList,
       seriesList
     );
-    const defaultOptions = lineConfig.getOptions();
+    const defaultOptions = barConfig.getOptions();
     this.options = this.optionsHandle(defaultOptions);
     this.optionsInit.emit(this.options);
   }
@@ -157,8 +157,7 @@ export class NgEchartsLineComponent implements OnChanges {
         Object.assign(d, this.tooltipConfigs[d.seriesIndex]);
         return d;
       });
-      const data = params.sort(this.sortData('value', false));
-      return Tools.chartTooltipFormatter(data);
+      return Tools.chartTooltipFormatter(params);
     };
     // 左侧 label 格式化
     options.yAxis[0].axisLabel.formatter = Tools.chartYLabelFormatter(this._dataConfig.valueType);
@@ -169,25 +168,5 @@ export class NgEchartsLineComponent implements OnChanges {
 
   onChartInit(chart) {
     this.chartInit.emit(chart);
-  }
-
-  sortData(type, rev) {
-    // rev false降序 || true升序
-    if (rev === undefined) {
-      rev = 1;
-    } else {
-      rev = (rev) ? 1 : -1;
-    }
-    return (a, b) => {
-      a = +a[type];
-      b = +b[type];
-      if (a < b) {
-        return rev * -1;
-      }
-      if (a > b) {
-        return rev * 1;
-      }
-      return 0;
-    };
   }
 }
