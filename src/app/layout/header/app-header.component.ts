@@ -6,13 +6,13 @@ import { Component, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./app-header.component.scss']
 })
 export class AppHeaderComponent {
-  @Output() headerReset: EventEmitter<any> = new EventEmitter();
-  @Output() headerShare: EventEmitter<any[]> = new EventEmitter();
+  @Output() reset: EventEmitter<any> = new EventEmitter();
+  @Output() share: EventEmitter<any[]> = new EventEmitter();
 
-  reset() {
-    this.headerReset.emit();
+  doReset() {
+    this.reset.emit();
   }
-  share() {
-    this.headerShare.emit();
+  doShare() {
+    this.share.emit();
   }
 }

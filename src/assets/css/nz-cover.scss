@@ -1,1 +1,13 @@
 /* 覆盖 nz-zorro 样式 */
+/* nz-tooltip */
+.ant-tooltip {
+  font-size: 12px;
+  .ant-tooltip-inner {
+    text-align: center;
+    word-break: break-all;
+  }
+}
+/* nz-radio-group */
+.ant-radio-group-small {
+  font-size: 12px;
+}

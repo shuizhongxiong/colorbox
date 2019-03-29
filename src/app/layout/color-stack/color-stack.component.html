@@ -5,7 +5,7 @@
   </div>
   <div class="stack-main">
     <div class="stack-block" *ngFor="let data of result"
-      [style.backgroundColor]="data.hex">
+      [style.backgroundColor]="data.hex" clipboard [payload]="data.hex" [isNeedTooltip]="true">
       <div class="block-label" [style.color]="data.displayColor">{{data.label}}
       </div>
       <div class="block-lock">

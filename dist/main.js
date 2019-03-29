@@ -63,7 +63,7 @@ var AppRoutingModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"app-wrapper\">\n  <app-header (headerReset)=\"headerReset()\" (headerShare)=\"headerShare()\">\n  </app-header>\n  <div class=\"app-content\">\n    <div class=\"content-palette\">\n      <app-color-palette (resultChange)=\"resultChange($event)\" [(graph)]=\"graph\">\n      </app-color-palette>\n    </div>\n    <div class=\"content-main\">\n      <div class=\"main-graph\">\n        <app-color-graph [result]=\"result\" [(graph)]=\"graph\"></app-color-graph>\n      </div>\n      <div class=\"main-chart\">\n        <app-color-chart [result]=\"result\"></app-color-chart>\n      </div>\n    </div>\n    <div class=\"content-stack\">\n      <app-color-stack [result]=\"result\"></app-color-stack>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"app-wrapper\">\n  <app-header (reset)=\"headerReset()\" (share)=\"headerShare(tplContent)\">\n  </app-header>\n  <div class=\"app-content\">\n    <div class=\"content-palette\">\n      <app-color-palette [(reset)]=\"reset\" [(graph)]=\"graph\" (resultChange)=\"resultChange($event)\">\n      </app-color-palette>\n    </div>\n    <div class=\"content-main\">\n      <div class=\"main-graph\">\n        <app-color-graph [result]=\"result\" [(graph)]=\"graph\"></app-color-graph>\n      </div>\n      <div class=\"main-chart\">\n        <app-color-chart [result]=\"result\"></app-color-chart>\n      </div>\n    </div>\n    <div class=\"content-stack\">\n      <app-color-stack [result]=\"result\"></app-color-stack>\n    </div>\n  </div>\n</div>\n<ng-template #tplContent>\n  <p clipboard [payload]=\"colorList\" [isNeedTooltip]=\"true\">{{colorList}}</p>\n</ng-template>\n"
 
 /***/ }),
 
@@ -100,6 +100,8 @@ var AppComponent = /** @class */ (function () {
         this.title = 'colorbox';
         this.result = [];
         this.graph = 'hue';
+        this.reset = false;
+        this.colorList = '';
     }
     AppComponent.prototype.resultChange = function (data) {
         if (data && Array.isArray(data)) {
@@ -107,13 +109,15 @@ var AppComponent = /** @class */ (function () {
         }
     };
     AppComponent.prototype.headerReset = function () {
-        window.location.reload();
+        this.reset = true;
     };
-    AppComponent.prototype.headerShare = function () {
-        var colorList = this.result.map(function (d) { return d.hex; });
-        this.modalService.info({
-            nzTitle: 'Hex JSON',
-            nzContent: colorList.toString()
+    AppComponent.prototype.headerShare = function (tplContent) {
+        this.colorList = this.result.map(function (d) { return d.hex; }).toString();
+        this.modalService.create({
+            nzTitle: '颜色列表（点击下方列表即可复制）',
+            nzContent: tplContent,
+            nzCancelText: null,
+            nzOnOk: function () { return new Promise(function (resolve) { return resolve(); }); }
         });
     };
     AppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -144,21 +148,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm5/animations.js");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
-/* harmony import */ var ng_zorro_antd__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ng-zorro-antd */ "./node_modules/ng-zorro-antd/fesm5/ng-zorro-antd.js");
-/* harmony import */ var _angular_common_locales_zh__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/common/locales/zh */ "./node_modules/@angular/common/locales/zh.js");
-/* harmony import */ var _angular_common_locales_zh__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_angular_common_locales_zh__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
-/* harmony import */ var _modules_ng_echarts__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./modules/ng-echarts */ "./src/app/modules/ng-echarts/index.ts");
-/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
-/* harmony import */ var _layout_color_chart_color_chart_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./layout/color-chart/color-chart.component */ "./src/app/layout/color-chart/color-chart.component.ts");
-/* harmony import */ var _layout_color_graph_color_graph_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./layout/color-graph/color-graph.component */ "./src/app/layout/color-graph/color-graph.component.ts");
-/* harmony import */ var _layout_color_palette_color_palette_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./layout/color-palette/color-palette.component */ "./src/app/layout/color-palette/color-palette.component.ts");
-/* harmony import */ var _layout_color_stack_color_stack_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./layout/color-stack/color-stack.component */ "./src/app/layout/color-stack/color-stack.component.ts");
-/* harmony import */ var _layout_header_app_header_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./layout/header/app-header.component */ "./src/app/layout/header/app-header.component.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm5/animations.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var ng_zorro_antd__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ng-zorro-antd */ "./node_modules/ng-zorro-antd/fesm5/ng-zorro-antd.js");
+/* harmony import */ var _angular_common_locales_zh__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/common/locales/zh */ "./node_modules/@angular/common/locales/zh.js");
+/* harmony import */ var _angular_common_locales_zh__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_angular_common_locales_zh__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
+/* harmony import */ var _shared__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./shared */ "./src/app/shared/index.ts");
+/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
+/* harmony import */ var _layout_color_chart_color_chart_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./layout/color-chart/color-chart.component */ "./src/app/layout/color-chart/color-chart.component.ts");
+/* harmony import */ var _layout_color_graph_color_graph_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./layout/color-graph/color-graph.component */ "./src/app/layout/color-graph/color-graph.component.ts");
+/* harmony import */ var _layout_color_palette_color_palette_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./layout/color-palette/color-palette.component */ "./src/app/layout/color-palette/color-palette.component.ts");
+/* harmony import */ var _layout_color_stack_color_stack_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./layout/color-stack/color-stack.component */ "./src/app/layout/color-stack/color-stack.component.ts");
+/* harmony import */ var _layout_header_app_header_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./layout/header/app-header.component */ "./src/app/layout/header/app-header.component.ts");
 
 
 
@@ -175,32 +178,29 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-Object(_angular_common__WEBPACK_IMPORTED_MODULE_6__["registerLocaleData"])(_angular_common_locales_zh__WEBPACK_IMPORTED_MODULE_8___default.a);
+Object(_angular_common__WEBPACK_IMPORTED_MODULE_5__["registerLocaleData"])(_angular_common_locales_zh__WEBPACK_IMPORTED_MODULE_7___default.a);
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["NgModule"])({
             declarations: [
-                _app_component__WEBPACK_IMPORTED_MODULE_11__["AppComponent"],
-                _layout_color_chart_color_chart_component__WEBPACK_IMPORTED_MODULE_12__["ColorChartComponent"],
-                _layout_color_graph_color_graph_component__WEBPACK_IMPORTED_MODULE_13__["ColorGraphComponent"],
-                _layout_color_palette_color_palette_component__WEBPACK_IMPORTED_MODULE_14__["ColorPaletteComponent"],
-                _layout_color_stack_color_stack_component__WEBPACK_IMPORTED_MODULE_15__["ColorStackComponent"],
-                _layout_header_app_header_component__WEBPACK_IMPORTED_MODULE_16__["AppHeaderComponent"]
+                _app_component__WEBPACK_IMPORTED_MODULE_10__["AppComponent"],
+                _layout_color_chart_color_chart_component__WEBPACK_IMPORTED_MODULE_11__["ColorChartComponent"],
+                _layout_color_graph_color_graph_component__WEBPACK_IMPORTED_MODULE_12__["ColorGraphComponent"],
+                _layout_color_palette_color_palette_component__WEBPACK_IMPORTED_MODULE_13__["ColorPaletteComponent"],
+                _layout_color_stack_color_stack_component__WEBPACK_IMPORTED_MODULE_14__["ColorStackComponent"],
+                _layout_header_app_header_component__WEBPACK_IMPORTED_MODULE_15__["AppHeaderComponent"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
-                _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
-                _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClientModule"],
-                _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_5__["BrowserAnimationsModule"],
-                ng_zorro_antd__WEBPACK_IMPORTED_MODULE_7__["NgZorroAntdModule"],
-                _app_routing_module__WEBPACK_IMPORTED_MODULE_9__["AppRoutingModule"],
-                _modules_ng_echarts__WEBPACK_IMPORTED_MODULE_10__["NgEchartsModule"]
+                _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClientModule"],
+                _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_4__["BrowserAnimationsModule"],
+                _app_routing_module__WEBPACK_IMPORTED_MODULE_8__["AppRoutingModule"],
+                _shared__WEBPACK_IMPORTED_MODULE_9__["SharedModule"]
             ],
-            providers: [{ provide: ng_zorro_antd__WEBPACK_IMPORTED_MODULE_7__["NZ_I18N"], useValue: ng_zorro_antd__WEBPACK_IMPORTED_MODULE_7__["zh_CN"] }],
-            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_11__["AppComponent"]]
+            providers: [{ provide: ng_zorro_antd__WEBPACK_IMPORTED_MODULE_6__["NZ_I18N"], useValue: ng_zorro_antd__WEBPACK_IMPORTED_MODULE_6__["zh_CN"] }],
+            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_10__["AppComponent"]]
         })
     ], AppModule);
     return AppModule;
@@ -3566,6 +3566,7 @@ var ColorPaletteComponent = /** @class */ (function () {
             lock_hex: '',
             modifier: 10,
         };
+        this.valuesClone = JSON.parse(JSON.stringify(this.values));
         this.steps = {
             min: 3,
             max: 21
@@ -3614,6 +3615,8 @@ var ColorPaletteComponent = /** @class */ (function () {
         };
         this.curves = Object.keys(_coloralgorithm_curves_js__WEBPACK_IMPORTED_MODULE_2__);
         this.result = [];
+        this.reset = false;
+        this.resetChange = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
         this.graph = 'hue';
         this.graphChange = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
         this.resultChange = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
@@ -3621,7 +3624,15 @@ var ColorPaletteComponent = /** @class */ (function () {
     ColorPaletteComponent.prototype.ngOnInit = function () {
         this.valueChange('', 'lock_hex');
     };
+    ColorPaletteComponent.prototype.ngOnChanges = function (changes) {
+        var reset = changes.reset;
+        if (reset && reset.currentValue) {
+            this.values = JSON.parse(JSON.stringify(this.valuesClone));
+            this.valueChange('', 'lock_hex');
+        }
+    };
     ColorPaletteComponent.prototype.valueChange = function (value, key) {
+        var _this = this;
         // 更改图表类型
         var type = key.substring(0, 3);
         if (type !== 'hue' && type !== 'sat' && type !== 'lum') {
@@ -3632,6 +3643,12 @@ var ColorPaletteComponent = /** @class */ (function () {
         this.values[key] = value;
         this.result = _coloralgorithm_generate_js__WEBPACK_IMPORTED_MODULE_3__["generate"](this.values);
         this.resultChange.emit(this.result);
+        if (this.reset) {
+            setTimeout(function () {
+                _this.reset = false;
+                _this.resetChange.emit(_this.reset);
+            }, 0);
+        }
     };
     ColorPaletteComponent.prototype.chageGraph = function (key) {
         this.graph = key;
@@ -3644,6 +3661,14 @@ var ColorPaletteComponent = /** @class */ (function () {
         });
         this.minorSteps = minorSteps;
     };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], ColorPaletteComponent.prototype, "reset", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"])
+    ], ColorPaletteComponent.prototype, "resetChange", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
@@ -3998,7 +4023,7 @@ function se(e, t) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"app-color-stack\">\n  <div class=\"stack-header clearfloat\">\n    <p class=\"float-left header-title\">文字测试</p>\n    <p class=\"float-right header-subtitle\">请注意文字阅读清晰度</p>\n  </div>\n  <div class=\"stack-main\">\n    <div class=\"stack-block\" *ngFor=\"let data of result\"\n      [style.backgroundColor]=\"data.hex\">\n      <div class=\"block-label\" [style.color]=\"data.displayColor\">{{data.label}}\n      </div>\n      <div class=\"block-lock\">\n        <i *ngIf=\"data.lock\" nz-icon type=\"lock\" theme=\"outline\"></i>\n      </div>\n      <div class=\"block-black\">{{data.contrastBlack}}b</div>\n      <div class=\"block-white\">{{data.contrastWhite}}w</div>\n      <div class=\"block-hex\" [style.color]=\"data.displayColor\">{{data.hex}}\n      </div>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"app-color-stack\">\n  <div class=\"stack-header clearfloat\">\n    <p class=\"float-left header-title\">文字测试</p>\n    <p class=\"float-right header-subtitle\">请注意文字阅读清晰度</p>\n  </div>\n  <div class=\"stack-main\">\n    <div class=\"stack-block\" *ngFor=\"let data of result\"\n      [style.backgroundColor]=\"data.hex\" clipboard [payload]=\"data.hex\" [isNeedTooltip]=\"true\">\n      <div class=\"block-label\" [style.color]=\"data.displayColor\">{{data.label}}\n      </div>\n      <div class=\"block-lock\">\n        <i *ngIf=\"data.lock\" nz-icon type=\"lock\" theme=\"outline\"></i>\n      </div>\n      <div class=\"block-black\">{{data.contrastBlack}}b</div>\n      <div class=\"block-white\">{{data.contrastWhite}}w</div>\n      <div class=\"block-hex\" [style.color]=\"data.displayColor\">{{data.hex}}\n      </div>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -4056,7 +4081,7 @@ var ColorStackComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"header clearfloat\">\n  <div class=\"float-left\">\n    <div class=\"header-logo\">\n      <img src=\"./assets/images/logo.png\" alt=\"极光可视化色彩工具\">\n    </div>\n    <p class=\"header-title\">极光可视化色彩工具</p>\n  </div>\n  <div class=\"float-right\">\n    <button nz-button (click)=\"reset()\">重置</button>\n    <button nz-button nzType=\"primary\" (click)=\"share()\">导出</button>\n  </div>\n</div>\n"
+module.exports = "<div class=\"header clearfloat\">\n  <div class=\"float-left\">\n    <div class=\"header-logo\">\n      <img src=\"./assets/images/logo.png\" alt=\"极光可视化色彩工具\">\n    </div>\n    <p class=\"header-title\">极光可视化色彩工具</p>\n  </div>\n  <div class=\"float-right\">\n    <button nz-button (click)=\"doReset()\">重置</button>\n    <button nz-button nzType=\"primary\" (click)=\"doShare()\">导出</button>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -4087,23 +4112,23 @@ __webpack_require__.r(__webpack_exports__);
 
 var AppHeaderComponent = /** @class */ (function () {
     function AppHeaderComponent() {
-        this.headerReset = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        this.headerShare = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
+        this.reset = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
+        this.share = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
     }
-    AppHeaderComponent.prototype.reset = function () {
-        this.headerReset.emit();
+    AppHeaderComponent.prototype.doReset = function () {
+        this.reset.emit();
     };
-    AppHeaderComponent.prototype.share = function () {
-        this.headerShare.emit();
+    AppHeaderComponent.prototype.doShare = function () {
+        this.share.emit();
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"])
-    ], AppHeaderComponent.prototype, "headerReset", void 0);
+    ], AppHeaderComponent.prototype, "reset", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"])
-    ], AppHeaderComponent.prototype, "headerShare", void 0);
+    ], AppHeaderComponent.prototype, "share", void 0);
     AppHeaderComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-header',
@@ -4118,10 +4143,191 @@ var AppHeaderComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/modules/ng-echarts/charts-base/charts-empty/charts-empty.component.html":
-/*!*****************************************************************************************!*\
-  !*** ./src/app/modules/ng-echarts/charts-base/charts-empty/charts-empty.component.html ***!
-  \*****************************************************************************************/
+/***/ "./src/app/shared/directives/clipboard-tooltip.component.ts":
+/*!******************************************************************!*\
+  !*** ./src/app/shared/directives/clipboard-tooltip.component.ts ***!
+  \******************************************************************/
+/*! exports provided: ClipboardTooltipComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ClipboardTooltipComponent", function() { return ClipboardTooltipComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+
+
+var ClipboardTooltipComponent = /** @class */ (function () {
+    function ClipboardTooltipComponent() {
+        this.tips = null;
+        this.visible = false;
+    }
+    Object.defineProperty(ClipboardTooltipComponent.prototype, "status", {
+        set: function (value) {
+            var _this = this;
+            if (value === 'start') {
+                this.tips = '点击即可复制';
+                this.visible = false;
+            }
+            else if (value === 'done') {
+                this.tips = '复制成功';
+                this.visible = true;
+                setTimeout(function () {
+                    _this.status = 'start';
+                }, 500);
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [String])
+    ], ClipboardTooltipComponent.prototype, "status", null);
+    ClipboardTooltipComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'clipboard-tooltip',
+            template: "\n    <div class=\"clipboard-tooltip\" nz-tooltip [nzVisible]=\"visible\" [nzTitle]=\"tips\"></div>\n  ",
+            styles: ["\n    :host {\n      position: absolute;\n      top: 0;\n      left: 0;\n      width: 100%;\n      height: 100%;\n      cursor: pointer;\n    }\n    :host .clipboard-tooltip {\n      position: absolute;\n      top: 0;\n      left: 0;\n      width: 100%;\n      height: 100%;\n    }\n  "]
+        })
+    ], ClipboardTooltipComponent);
+    return ClipboardTooltipComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/shared/directives/clipboard.directive.ts":
+/*!**********************************************************!*\
+  !*** ./src/app/shared/directives/clipboard.directive.ts ***!
+  \**********************************************************/
+/*! exports provided: ClipboardDirective */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ClipboardDirective", function() { return ClipboardDirective; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _clipboard_tooltip_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./clipboard-tooltip.component */ "./src/app/shared/directives/clipboard-tooltip.component.ts");
+
+
+
+var ClipboardDirective = /** @class */ (function () {
+    function ClipboardDirective(el, componentFactoryResolver, appRef, injector) {
+        this.el = el;
+        this.componentFactoryResolver = componentFactoryResolver;
+        this.appRef = appRef;
+        this.injector = injector;
+        this.copied = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
+    }
+    Object.defineProperty(ClipboardDirective.prototype, "isNeedTooltip", {
+        set: function (value) {
+            var _this = this;
+            if (value) {
+                // fix ExpressionChangedAfterItHasBeenCheckedError
+                setTimeout(function () {
+                    _this.appendTooltip();
+                }, 0);
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    ClipboardDirective.prototype.onClick = function (event) {
+        var _this = this;
+        event.preventDefault();
+        if (!this.payload) {
+            return;
+        }
+        var listener = function (e) {
+            e.preventDefault();
+            var clipboard = e.clipboardData;
+            clipboard.setData('text', _this.payload.toString());
+            _this.componentRef.instance.status = 'done';
+            _this.copied.emit(_this.payload);
+        };
+        document.addEventListener('copy', listener, false);
+        document.execCommand('copy');
+        document.removeEventListener('copy', listener, false);
+    };
+    ClipboardDirective.prototype.ngOnDestroy = function () {
+        if (this.componentRef) {
+            this.componentRef.destroy();
+        }
+    };
+    ClipboardDirective.prototype.appendTooltip = function () {
+        var domEl = this.el.nativeElement;
+        domEl.style.position = 'relative';
+        // Create a component reference from the component
+        this.componentRef = this.componentFactoryResolver
+            .resolveComponentFactory(_clipboard_tooltip_component__WEBPACK_IMPORTED_MODULE_2__["ClipboardTooltipComponent"])
+            .create(this.injector);
+        // input
+        this.componentRef.instance.status = 'start';
+        // Attach component to the appRef so that it's inside the ng component tree
+        this.appRef.attachView(this.componentRef.hostView);
+        // Get DOM element from component
+        var domElem = this.componentRef.hostView
+            .rootNodes[0];
+        domEl.appendChild(domElem);
+    };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
+    ], ClipboardDirective.prototype, "payload", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Boolean),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Boolean])
+    ], ClipboardDirective.prototype, "isNeedTooltip", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"])
+    ], ClipboardDirective.prototype, "copied", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('click', ['$event']),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [MouseEvent]),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
+    ], ClipboardDirective.prototype, "onClick", null);
+    ClipboardDirective = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({ selector: '[clipboard]' }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"],
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ComponentFactoryResolver"],
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ApplicationRef"],
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["Injector"]])
+    ], ClipboardDirective);
+    return ClipboardDirective;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/shared/index.ts":
+/*!*********************************!*\
+  !*** ./src/app/shared/index.ts ***!
+  \*********************************/
+/*! exports provided: SharedModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _shared_module__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./shared.module */ "./src/app/shared/shared.module.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SharedModule", function() { return _shared_module__WEBPACK_IMPORTED_MODULE_0__["SharedModule"]; });
+
+
+
+
+/***/ }),
+
+/***/ "./src/app/shared/modules/ng-echarts/charts-base/charts-empty/charts-empty.component.html":
+/*!************************************************************************************************!*\
+  !*** ./src/app/shared/modules/ng-echarts/charts-base/charts-empty/charts-empty.component.html ***!
+  \************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -4129,21 +4335,21 @@ module.exports = "<div class=\"charts-empty\">\n  <div class=\"empty-overlay\"><
 
 /***/ }),
 
-/***/ "./src/app/modules/ng-echarts/charts-base/charts-empty/charts-empty.component.scss":
-/*!*****************************************************************************************!*\
-  !*** ./src/app/modules/ng-echarts/charts-base/charts-empty/charts-empty.component.scss ***!
-  \*****************************************************************************************/
+/***/ "./src/app/shared/modules/ng-echarts/charts-base/charts-empty/charts-empty.component.scss":
+/*!************************************************************************************************!*\
+  !*** ./src/app/shared/modules/ng-echarts/charts-base/charts-empty/charts-empty.component.scss ***!
+  \************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "charts-empty .charts-empty {\n  width: 100%;\n  height: 100%;\n  position: absolute;\n  top: 0;\n  left: 0; }\n  charts-empty .charts-empty .empty-overlay {\n    overflow: hidden;\n    z-index: 999;\n    position: absolute;\n    top: 0;\n    right: 0;\n    bottom: 0;\n    left: 0;\n    pointer-events: none;\n    -webkit-user-select: none;\n       -moz-user-select: none;\n        -ms-user-select: none;\n            user-select: none; }\n  charts-empty .charts-empty nz-empty {\n    position: absolute;\n    z-index: 1000;\n    width: 100%;\n    height: 100%;\n    top: 0;\n    left: 0;\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    justify-content: center; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9nYW9tZC9Eb2N1bWVudHMvZ2l0aHViL2NvbG9yYm94L3NyYy9hcHAvbW9kdWxlcy9uZy1lY2hhcnRzL2NoYXJ0cy1iYXNlL2NoYXJ0cy1lbXB0eS9jaGFydHMtZW1wdHkuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFFSSxXQUFXO0VBQ1gsWUFBWTtFQUNaLGtCQUFrQjtFQUNsQixNQUFNO0VBQ04sT0FBTyxFQUFBO0VBTlg7SUFRTSxnQkFBZ0I7SUFDaEIsWUFBWTtJQUNaLGtCQUFrQjtJQUNsQixNQUFNO0lBQ04sUUFBUTtJQUNSLFNBQVM7SUFDVCxPQUFPO0lBQ1Asb0JBQW9CO0lBQ3BCLHlCQUFpQjtPQUFqQixzQkFBaUI7UUFBakIscUJBQWlCO1lBQWpCLGlCQUFpQixFQUFBO0VBaEJ2QjtJQW1CTSxrQkFBa0I7SUFDbEIsYUFBYTtJQUNiLFdBQVc7SUFDWCxZQUFZO0lBQ1osTUFBTTtJQUNOLE9BQU87SUFDUCxhQUFhO0lBQ2Isc0JBQXNCO0lBQ3RCLG1CQUFtQjtJQUNuQix1QkFBdUIsRUFBQSIsImZpbGUiOiJzcmMvYXBwL21vZHVsZXMvbmctZWNoYXJ0cy9jaGFydHMtYmFzZS9jaGFydHMtZW1wdHkvY2hhcnRzLWVtcHR5LmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiY2hhcnRzLWVtcHR5IHtcbiAgLmNoYXJ0cy1lbXB0eSB7XG4gICAgd2lkdGg6IDEwMCU7XG4gICAgaGVpZ2h0OiAxMDAlO1xuICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgICB0b3A6IDA7XG4gICAgbGVmdDogMDtcbiAgICAuZW1wdHktb3ZlcmxheSB7XG4gICAgICBvdmVyZmxvdzogaGlkZGVuO1xuICAgICAgei1pbmRleDogOTk5O1xuICAgICAgcG9zaXRpb246IGFic29sdXRlO1xuICAgICAgdG9wOiAwO1xuICAgICAgcmlnaHQ6IDA7XG4gICAgICBib3R0b206IDA7XG4gICAgICBsZWZ0OiAwO1xuICAgICAgcG9pbnRlci1ldmVudHM6IG5vbmU7XG4gICAgICB1c2VyLXNlbGVjdDogbm9uZTtcbiAgICB9XG4gICAgbnotZW1wdHkge1xuICAgICAgcG9zaXRpb246IGFic29sdXRlO1xuICAgICAgei1pbmRleDogMTAwMDtcbiAgICAgIHdpZHRoOiAxMDAlO1xuICAgICAgaGVpZ2h0OiAxMDAlO1xuICAgICAgdG9wOiAwO1xuICAgICAgbGVmdDogMDtcbiAgICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xuICAgICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAgICAgIGp1c3RpZnktY29udGVudDogY2VudGVyO1xuICAgIH1cbiAgfVxufVxuIl19 */"
+module.exports = "charts-empty .charts-empty {\n  width: 100%;\n  height: 100%;\n  position: absolute;\n  top: 0;\n  left: 0; }\n  charts-empty .charts-empty .empty-overlay {\n    overflow: hidden;\n    z-index: 999;\n    position: absolute;\n    top: 0;\n    right: 0;\n    bottom: 0;\n    left: 0;\n    pointer-events: none;\n    -webkit-user-select: none;\n       -moz-user-select: none;\n        -ms-user-select: none;\n            user-select: none; }\n  charts-empty .charts-empty nz-empty {\n    position: absolute;\n    z-index: 1000;\n    width: 100%;\n    height: 100%;\n    top: 0;\n    left: 0;\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    justify-content: center; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9nYW9tZC9Eb2N1bWVudHMvZ2l0aHViL2NvbG9yYm94L3NyYy9hcHAvc2hhcmVkL21vZHVsZXMvbmctZWNoYXJ0cy9jaGFydHMtYmFzZS9jaGFydHMtZW1wdHkvY2hhcnRzLWVtcHR5LmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBRUksV0FBVztFQUNYLFlBQVk7RUFDWixrQkFBa0I7RUFDbEIsTUFBTTtFQUNOLE9BQU8sRUFBQTtFQU5YO0lBUU0sZ0JBQWdCO0lBQ2hCLFlBQVk7SUFDWixrQkFBa0I7SUFDbEIsTUFBTTtJQUNOLFFBQVE7SUFDUixTQUFTO0lBQ1QsT0FBTztJQUNQLG9CQUFvQjtJQUNwQix5QkFBaUI7T0FBakIsc0JBQWlCO1FBQWpCLHFCQUFpQjtZQUFqQixpQkFBaUIsRUFBQTtFQWhCdkI7SUFtQk0sa0JBQWtCO0lBQ2xCLGFBQWE7SUFDYixXQUFXO0lBQ1gsWUFBWTtJQUNaLE1BQU07SUFDTixPQUFPO0lBQ1AsYUFBYTtJQUNiLHNCQUFzQjtJQUN0QixtQkFBbUI7SUFDbkIsdUJBQXVCLEVBQUEiLCJmaWxlIjoic3JjL2FwcC9zaGFyZWQvbW9kdWxlcy9uZy1lY2hhcnRzL2NoYXJ0cy1iYXNlL2NoYXJ0cy1lbXB0eS9jaGFydHMtZW1wdHkuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJjaGFydHMtZW1wdHkge1xuICAuY2hhcnRzLWVtcHR5IHtcbiAgICB3aWR0aDogMTAwJTtcbiAgICBoZWlnaHQ6IDEwMCU7XG4gICAgcG9zaXRpb246IGFic29sdXRlO1xuICAgIHRvcDogMDtcbiAgICBsZWZ0OiAwO1xuICAgIC5lbXB0eS1vdmVybGF5IHtcbiAgICAgIG92ZXJmbG93OiBoaWRkZW47XG4gICAgICB6LWluZGV4OiA5OTk7XG4gICAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgICB0b3A6IDA7XG4gICAgICByaWdodDogMDtcbiAgICAgIGJvdHRvbTogMDtcbiAgICAgIGxlZnQ6IDA7XG4gICAgICBwb2ludGVyLWV2ZW50czogbm9uZTtcbiAgICAgIHVzZXItc2VsZWN0OiBub25lO1xuICAgIH1cbiAgICBuei1lbXB0eSB7XG4gICAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgICB6LWluZGV4OiAxMDAwO1xuICAgICAgd2lkdGg6IDEwMCU7XG4gICAgICBoZWlnaHQ6IDEwMCU7XG4gICAgICB0b3A6IDA7XG4gICAgICBsZWZ0OiAwO1xuICAgICAgZGlzcGxheTogZmxleDtcbiAgICAgIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XG4gICAgICBhbGlnbi1pdGVtczogY2VudGVyO1xuICAgICAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XG4gICAgfVxuICB9XG59XG4iXX0= */"
 
 /***/ }),
 
-/***/ "./src/app/modules/ng-echarts/charts-base/charts-empty/charts-empty.component.ts":
-/*!***************************************************************************************!*\
-  !*** ./src/app/modules/ng-echarts/charts-base/charts-empty/charts-empty.component.ts ***!
-  \***************************************************************************************/
+/***/ "./src/app/shared/modules/ng-echarts/charts-base/charts-empty/charts-empty.component.ts":
+/*!**********************************************************************************************!*\
+  !*** ./src/app/shared/modules/ng-echarts/charts-base/charts-empty/charts-empty.component.ts ***!
+  \**********************************************************************************************/
 /*! exports provided: ChartsEmptyComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -4165,9 +4371,9 @@ var ChartsEmptyComponent = /** @class */ (function () {
     ChartsEmptyComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'charts-empty',
-            template: __webpack_require__(/*! ./charts-empty.component.html */ "./src/app/modules/ng-echarts/charts-base/charts-empty/charts-empty.component.html"),
+            template: __webpack_require__(/*! ./charts-empty.component.html */ "./src/app/shared/modules/ng-echarts/charts-base/charts-empty/charts-empty.component.html"),
             encapsulation: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewEncapsulation"].None,
-            styles: [__webpack_require__(/*! ./charts-empty.component.scss */ "./src/app/modules/ng-echarts/charts-base/charts-empty/charts-empty.component.scss")]
+            styles: [__webpack_require__(/*! ./charts-empty.component.scss */ "./src/app/shared/modules/ng-echarts/charts-base/charts-empty/charts-empty.component.scss")]
         })
     ], ChartsEmptyComponent);
     return ChartsEmptyComponent;
@@ -4177,10 +4383,10 @@ var ChartsEmptyComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/modules/ng-echarts/charts-base/charts-loading/charts-loading.component.html":
-/*!*********************************************************************************************!*\
-  !*** ./src/app/modules/ng-echarts/charts-base/charts-loading/charts-loading.component.html ***!
-  \*********************************************************************************************/
+/***/ "./src/app/shared/modules/ng-echarts/charts-base/charts-loading/charts-loading.component.html":
+/*!****************************************************************************************************!*\
+  !*** ./src/app/shared/modules/ng-echarts/charts-base/charts-loading/charts-loading.component.html ***!
+  \****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -4188,21 +4394,21 @@ module.exports = "<div class=\"charts-loading\">\n  <div class=\"loading-overlay
 
 /***/ }),
 
-/***/ "./src/app/modules/ng-echarts/charts-base/charts-loading/charts-loading.component.scss":
-/*!*********************************************************************************************!*\
-  !*** ./src/app/modules/ng-echarts/charts-base/charts-loading/charts-loading.component.scss ***!
-  \*********************************************************************************************/
+/***/ "./src/app/shared/modules/ng-echarts/charts-base/charts-loading/charts-loading.component.scss":
+/*!****************************************************************************************************!*\
+  !*** ./src/app/shared/modules/ng-echarts/charts-base/charts-loading/charts-loading.component.scss ***!
+  \****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "charts-loading .charts-loading {\n  width: 100%;\n  height: 100%;\n  position: absolute;\n  top: 0;\n  left: 0; }\n  charts-loading .charts-loading .loading-overlay {\n    overflow: hidden;\n    z-index: 999;\n    position: absolute;\n    top: 0;\n    right: 0;\n    bottom: 0;\n    left: 0;\n    pointer-events: none;\n    -webkit-user-select: none;\n       -moz-user-select: none;\n        -ms-user-select: none;\n            user-select: none; }\n  charts-loading .charts-loading nz-spin {\n    position: absolute;\n    z-index: 1000;\n    display: block;\n    width: 100%;\n    height: 100%;\n    top: 0;\n    left: 0; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9nYW9tZC9Eb2N1bWVudHMvZ2l0aHViL2NvbG9yYm94L3NyYy9hcHAvbW9kdWxlcy9uZy1lY2hhcnRzL2NoYXJ0cy1iYXNlL2NoYXJ0cy1sb2FkaW5nL2NoYXJ0cy1sb2FkaW5nLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBRUksV0FBVztFQUNYLFlBQVk7RUFDWixrQkFBa0I7RUFDbEIsTUFBTTtFQUNOLE9BQU8sRUFBQTtFQU5YO0lBUU0sZ0JBQWdCO0lBQ2hCLFlBQVk7SUFDWixrQkFBa0I7SUFDbEIsTUFBTTtJQUNOLFFBQVE7SUFDUixTQUFTO0lBQ1QsT0FBTztJQUNQLG9CQUFvQjtJQUNwQix5QkFBaUI7T0FBakIsc0JBQWlCO1FBQWpCLHFCQUFpQjtZQUFqQixpQkFBaUIsRUFBQTtFQWhCdkI7SUFtQk0sa0JBQWtCO0lBQ2xCLGFBQWE7SUFDYixjQUFjO0lBQ2QsV0FBVztJQUNYLFlBQVk7SUFDWixNQUFNO0lBQ04sT0FBTyxFQUFBIiwiZmlsZSI6InNyYy9hcHAvbW9kdWxlcy9uZy1lY2hhcnRzL2NoYXJ0cy1iYXNlL2NoYXJ0cy1sb2FkaW5nL2NoYXJ0cy1sb2FkaW5nLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiY2hhcnRzLWxvYWRpbmcge1xuICAuY2hhcnRzLWxvYWRpbmcge1xuICAgIHdpZHRoOiAxMDAlO1xuICAgIGhlaWdodDogMTAwJTtcbiAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgdG9wOiAwO1xuICAgIGxlZnQ6IDA7XG4gICAgLmxvYWRpbmctb3ZlcmxheSB7XG4gICAgICBvdmVyZmxvdzogaGlkZGVuO1xuICAgICAgei1pbmRleDogOTk5O1xuICAgICAgcG9zaXRpb246IGFic29sdXRlO1xuICAgICAgdG9wOiAwO1xuICAgICAgcmlnaHQ6IDA7XG4gICAgICBib3R0b206IDA7XG4gICAgICBsZWZ0OiAwO1xuICAgICAgcG9pbnRlci1ldmVudHM6IG5vbmU7XG4gICAgICB1c2VyLXNlbGVjdDogbm9uZTtcbiAgICB9XG4gICAgbnotc3BpbiB7XG4gICAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgICB6LWluZGV4OiAxMDAwO1xuICAgICAgZGlzcGxheTogYmxvY2s7XG4gICAgICB3aWR0aDogMTAwJTtcbiAgICAgIGhlaWdodDogMTAwJTtcbiAgICAgIHRvcDogMDtcbiAgICAgIGxlZnQ6IDA7XG4gICAgfVxuICB9XG59XG4iXX0= */"
+module.exports = "charts-loading .charts-loading {\n  width: 100%;\n  height: 100%;\n  position: absolute;\n  top: 0;\n  left: 0; }\n  charts-loading .charts-loading .loading-overlay {\n    overflow: hidden;\n    z-index: 999;\n    position: absolute;\n    top: 0;\n    right: 0;\n    bottom: 0;\n    left: 0;\n    pointer-events: none;\n    -webkit-user-select: none;\n       -moz-user-select: none;\n        -ms-user-select: none;\n            user-select: none; }\n  charts-loading .charts-loading nz-spin {\n    position: absolute;\n    z-index: 1000;\n    display: block;\n    width: 100%;\n    height: 100%;\n    top: 0;\n    left: 0; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9nYW9tZC9Eb2N1bWVudHMvZ2l0aHViL2NvbG9yYm94L3NyYy9hcHAvc2hhcmVkL21vZHVsZXMvbmctZWNoYXJ0cy9jaGFydHMtYmFzZS9jaGFydHMtbG9hZGluZy9jaGFydHMtbG9hZGluZy5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUVJLFdBQVc7RUFDWCxZQUFZO0VBQ1osa0JBQWtCO0VBQ2xCLE1BQU07RUFDTixPQUFPLEVBQUE7RUFOWDtJQVFNLGdCQUFnQjtJQUNoQixZQUFZO0lBQ1osa0JBQWtCO0lBQ2xCLE1BQU07SUFDTixRQUFRO0lBQ1IsU0FBUztJQUNULE9BQU87SUFDUCxvQkFBb0I7SUFDcEIseUJBQWlCO09BQWpCLHNCQUFpQjtRQUFqQixxQkFBaUI7WUFBakIsaUJBQWlCLEVBQUE7RUFoQnZCO0lBbUJNLGtCQUFrQjtJQUNsQixhQUFhO0lBQ2IsY0FBYztJQUNkLFdBQVc7SUFDWCxZQUFZO0lBQ1osTUFBTTtJQUNOLE9BQU8sRUFBQSIsImZpbGUiOiJzcmMvYXBwL3NoYXJlZC9tb2R1bGVzL25nLWVjaGFydHMvY2hhcnRzLWJhc2UvY2hhcnRzLWxvYWRpbmcvY2hhcnRzLWxvYWRpbmcuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJjaGFydHMtbG9hZGluZyB7XG4gIC5jaGFydHMtbG9hZGluZyB7XG4gICAgd2lkdGg6IDEwMCU7XG4gICAgaGVpZ2h0OiAxMDAlO1xuICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgICB0b3A6IDA7XG4gICAgbGVmdDogMDtcbiAgICAubG9hZGluZy1vdmVybGF5IHtcbiAgICAgIG92ZXJmbG93OiBoaWRkZW47XG4gICAgICB6LWluZGV4OiA5OTk7XG4gICAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgICB0b3A6IDA7XG4gICAgICByaWdodDogMDtcbiAgICAgIGJvdHRvbTogMDtcbiAgICAgIGxlZnQ6IDA7XG4gICAgICBwb2ludGVyLWV2ZW50czogbm9uZTtcbiAgICAgIHVzZXItc2VsZWN0OiBub25lO1xuICAgIH1cbiAgICBuei1zcGluIHtcbiAgICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgICAgIHotaW5kZXg6IDEwMDA7XG4gICAgICBkaXNwbGF5OiBibG9jaztcbiAgICAgIHdpZHRoOiAxMDAlO1xuICAgICAgaGVpZ2h0OiAxMDAlO1xuICAgICAgdG9wOiAwO1xuICAgICAgbGVmdDogMDtcbiAgICB9XG4gIH1cbn1cbiJdfQ== */"
 
 /***/ }),
 
-/***/ "./src/app/modules/ng-echarts/charts-base/charts-loading/charts-loading.component.ts":
-/*!*******************************************************************************************!*\
-  !*** ./src/app/modules/ng-echarts/charts-base/charts-loading/charts-loading.component.ts ***!
-  \*******************************************************************************************/
+/***/ "./src/app/shared/modules/ng-echarts/charts-base/charts-loading/charts-loading.component.ts":
+/*!**************************************************************************************************!*\
+  !*** ./src/app/shared/modules/ng-echarts/charts-base/charts-loading/charts-loading.component.ts ***!
+  \**************************************************************************************************/
 /*! exports provided: ChartsLoadingComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -4229,9 +4435,9 @@ var ChartsLoadingComponent = /** @class */ (function () {
     ChartsLoadingComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'charts-loading',
-            template: __webpack_require__(/*! ./charts-loading.component.html */ "./src/app/modules/ng-echarts/charts-base/charts-loading/charts-loading.component.html"),
+            template: __webpack_require__(/*! ./charts-loading.component.html */ "./src/app/shared/modules/ng-echarts/charts-base/charts-loading/charts-loading.component.html"),
             encapsulation: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewEncapsulation"].None,
-            styles: [__webpack_require__(/*! ./charts-loading.component.scss */ "./src/app/modules/ng-echarts/charts-base/charts-loading/charts-loading.component.scss")]
+            styles: [__webpack_require__(/*! ./charts-loading.component.scss */ "./src/app/shared/modules/ng-echarts/charts-base/charts-loading/charts-loading.component.scss")]
         })
     ], ChartsLoadingComponent);
     return ChartsLoadingComponent;
@@ -4241,16 +4447,16 @@ var ChartsLoadingComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/modules/ng-echarts/index.ts":
-/*!*********************************************!*\
-  !*** ./src/app/modules/ng-echarts/index.ts ***!
-  \*********************************************/
+/***/ "./src/app/shared/modules/ng-echarts/index.ts":
+/*!****************************************************!*\
+  !*** ./src/app/shared/modules/ng-echarts/index.ts ***!
+  \****************************************************/
 /*! exports provided: NgEchartsModule */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _ng_echarts_module__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ng-echarts.module */ "./src/app/modules/ng-echarts/ng-echarts.module.ts");
+/* harmony import */ var _ng_echarts_module__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ng-echarts.module */ "./src/app/shared/modules/ng-echarts/ng-echarts.module.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NgEchartsModule", function() { return _ng_echarts_module__WEBPACK_IMPORTED_MODULE_0__["NgEchartsModule"]; });
 
 
@@ -4258,17 +4464,17 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./src/app/modules/ng-echarts/ng-echarts-bar/bar-config.ts":
-/*!*****************************************************************!*\
-  !*** ./src/app/modules/ng-echarts/ng-echarts-bar/bar-config.ts ***!
-  \*****************************************************************/
+/***/ "./src/app/shared/modules/ng-echarts/ng-echarts-bar/bar-config.ts":
+/*!************************************************************************!*\
+  !*** ./src/app/shared/modules/ng-echarts/ng-echarts-bar/bar-config.ts ***!
+  \************************************************************************/
 /*! exports provided: BarConfig */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BarConfig", function() { return BarConfig; });
-/* harmony import */ var _ng_echarts_model__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../ng-echarts.model */ "./src/app/modules/ng-echarts/ng-echarts.model.ts");
+/* harmony import */ var _ng_echarts_model__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../ng-echarts.model */ "./src/app/shared/modules/ng-echarts/ng-echarts.model.ts");
 
 var BarConfig = /** @class */ (function () {
     function BarConfig(legendList, xAxisList, seriesList) {
@@ -4385,10 +4591,10 @@ var BarConfig = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/modules/ng-echarts/ng-echarts-bar/ng-echarts-bar.component.ts":
-/*!*******************************************************************************!*\
-  !*** ./src/app/modules/ng-echarts/ng-echarts-bar/ng-echarts-bar.component.ts ***!
-  \*******************************************************************************/
+/***/ "./src/app/shared/modules/ng-echarts/ng-echarts-bar/ng-echarts-bar.component.ts":
+/*!**************************************************************************************!*\
+  !*** ./src/app/shared/modules/ng-echarts/ng-echarts-bar/ng-echarts-bar.component.ts ***!
+  \**************************************************************************************/
 /*! exports provided: NgEchartsBarComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -4397,8 +4603,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgEchartsBarComponent", function() { return NgEchartsBarComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _ng_echarts_tools__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../ng-echarts-tools */ "./src/app/modules/ng-echarts/ng-echarts-tools.ts");
-/* harmony import */ var _bar_config__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./bar-config */ "./src/app/modules/ng-echarts/ng-echarts-bar/bar-config.ts");
+/* harmony import */ var _ng_echarts_tools__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../ng-echarts-tools */ "./src/app/shared/modules/ng-echarts/ng-echarts-tools.ts");
+/* harmony import */ var _bar_config__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./bar-config */ "./src/app/shared/modules/ng-echarts/ng-echarts-bar/bar-config.ts");
 
 
 
@@ -4591,17 +4797,17 @@ var NgEchartsBarComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/modules/ng-echarts/ng-echarts-line/line-config.ts":
-/*!*******************************************************************!*\
-  !*** ./src/app/modules/ng-echarts/ng-echarts-line/line-config.ts ***!
-  \*******************************************************************/
+/***/ "./src/app/shared/modules/ng-echarts/ng-echarts-line/line-config.ts":
+/*!**************************************************************************!*\
+  !*** ./src/app/shared/modules/ng-echarts/ng-echarts-line/line-config.ts ***!
+  \**************************************************************************/
 /*! exports provided: LineConfig */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LineConfig", function() { return LineConfig; });
-/* harmony import */ var _ng_echarts_model__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../ng-echarts.model */ "./src/app/modules/ng-echarts/ng-echarts.model.ts");
+/* harmony import */ var _ng_echarts_model__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../ng-echarts.model */ "./src/app/shared/modules/ng-echarts/ng-echarts.model.ts");
 
 var LineConfig = /** @class */ (function () {
     function LineConfig(legendList, xAxisList, seriesList) {
@@ -4735,10 +4941,10 @@ var LineConfig = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/modules/ng-echarts/ng-echarts-line/ng-echarts-line.component.ts":
-/*!*********************************************************************************!*\
-  !*** ./src/app/modules/ng-echarts/ng-echarts-line/ng-echarts-line.component.ts ***!
-  \*********************************************************************************/
+/***/ "./src/app/shared/modules/ng-echarts/ng-echarts-line/ng-echarts-line.component.ts":
+/*!****************************************************************************************!*\
+  !*** ./src/app/shared/modules/ng-echarts/ng-echarts-line/ng-echarts-line.component.ts ***!
+  \****************************************************************************************/
 /*! exports provided: NgEchartsLineComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -4747,8 +4953,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgEchartsLineComponent", function() { return NgEchartsLineComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _ng_echarts_tools__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../ng-echarts-tools */ "./src/app/modules/ng-echarts/ng-echarts-tools.ts");
-/* harmony import */ var _line_config__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./line-config */ "./src/app/modules/ng-echarts/ng-echarts-line/line-config.ts");
+/* harmony import */ var _ng_echarts_tools__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../ng-echarts-tools */ "./src/app/shared/modules/ng-echarts/ng-echarts-tools.ts");
+/* harmony import */ var _line_config__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./line-config */ "./src/app/shared/modules/ng-echarts/ng-echarts-line/line-config.ts");
 
 
 
@@ -4962,10 +5168,10 @@ var NgEchartsLineComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/modules/ng-echarts/ng-echarts-pie/ng-echarts-pie.component.ts":
-/*!*******************************************************************************!*\
-  !*** ./src/app/modules/ng-echarts/ng-echarts-pie/ng-echarts-pie.component.ts ***!
-  \*******************************************************************************/
+/***/ "./src/app/shared/modules/ng-echarts/ng-echarts-pie/ng-echarts-pie.component.ts":
+/*!**************************************************************************************!*\
+  !*** ./src/app/shared/modules/ng-echarts/ng-echarts-pie/ng-echarts-pie.component.ts ***!
+  \**************************************************************************************/
 /*! exports provided: NgEchartsPieComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -4974,7 +5180,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgEchartsPieComponent", function() { return NgEchartsPieComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _pie_config__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./pie-config */ "./src/app/modules/ng-echarts/ng-echarts-pie/pie-config.ts");
+/* harmony import */ var _pie_config__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./pie-config */ "./src/app/shared/modules/ng-echarts/ng-echarts-pie/pie-config.ts");
 
 
 
@@ -5101,17 +5307,17 @@ var NgEchartsPieComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/modules/ng-echarts/ng-echarts-pie/pie-config.ts":
-/*!*****************************************************************!*\
-  !*** ./src/app/modules/ng-echarts/ng-echarts-pie/pie-config.ts ***!
-  \*****************************************************************/
+/***/ "./src/app/shared/modules/ng-echarts/ng-echarts-pie/pie-config.ts":
+/*!************************************************************************!*\
+  !*** ./src/app/shared/modules/ng-echarts/ng-echarts-pie/pie-config.ts ***!
+  \************************************************************************/
 /*! exports provided: PieConfig */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PieConfig", function() { return PieConfig; });
-/* harmony import */ var _ng_echarts_model__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../ng-echarts.model */ "./src/app/modules/ng-echarts/ng-echarts.model.ts");
+/* harmony import */ var _ng_echarts_model__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../ng-echarts.model */ "./src/app/shared/modules/ng-echarts/ng-echarts.model.ts");
 
 var PieConfig = /** @class */ (function () {
     function PieConfig(legendList, seriesList) {
@@ -5152,10 +5358,10 @@ var PieConfig = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/modules/ng-echarts/ng-echarts-tools.ts":
-/*!********************************************************!*\
-  !*** ./src/app/modules/ng-echarts/ng-echarts-tools.ts ***!
-  \********************************************************/
+/***/ "./src/app/shared/modules/ng-echarts/ng-echarts-tools.ts":
+/*!***************************************************************!*\
+  !*** ./src/app/shared/modules/ng-echarts/ng-echarts-tools.ts ***!
+  \***************************************************************/
 /*! exports provided: Tools */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -5245,10 +5451,10 @@ var Tools = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/modules/ng-echarts/ng-echarts-treemap/ng-echarts-treemap.component.ts":
-/*!***************************************************************************************!*\
-  !*** ./src/app/modules/ng-echarts/ng-echarts-treemap/ng-echarts-treemap.component.ts ***!
-  \***************************************************************************************/
+/***/ "./src/app/shared/modules/ng-echarts/ng-echarts-treemap/ng-echarts-treemap.component.ts":
+/*!**********************************************************************************************!*\
+  !*** ./src/app/shared/modules/ng-echarts/ng-echarts-treemap/ng-echarts-treemap.component.ts ***!
+  \**********************************************************************************************/
 /*! exports provided: NgEchartsTreemapComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -5257,7 +5463,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgEchartsTreemapComponent", function() { return NgEchartsTreemapComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _ng_echarts_model__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../ng-echarts.model */ "./src/app/modules/ng-echarts/ng-echarts.model.ts");
+/* harmony import */ var _ng_echarts_model__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../ng-echarts.model */ "./src/app/shared/modules/ng-echarts/ng-echarts.model.ts");
 
 
 
@@ -5418,10 +5624,10 @@ var NgEchartsTreemapComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/modules/ng-echarts/ng-echarts.component.ts":
-/*!************************************************************!*\
-  !*** ./src/app/modules/ng-echarts/ng-echarts.component.ts ***!
-  \************************************************************/
+/***/ "./src/app/shared/modules/ng-echarts/ng-echarts.component.ts":
+/*!*******************************************************************!*\
+  !*** ./src/app/shared/modules/ng-echarts/ng-echarts.component.ts ***!
+  \*******************************************************************/
 /*! exports provided: NgEchartsComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -5708,10 +5914,10 @@ var NgEchartsComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/modules/ng-echarts/ng-echarts.model.ts":
-/*!********************************************************!*\
-  !*** ./src/app/modules/ng-echarts/ng-echarts.model.ts ***!
-  \********************************************************/
+/***/ "./src/app/shared/modules/ng-echarts/ng-echarts.model.ts":
+/*!***************************************************************!*\
+  !*** ./src/app/shared/modules/ng-echarts/ng-echarts.model.ts ***!
+  \***************************************************************/
 /*! exports provided: ColorLib, LineLegendIconPath, TooltipBgColor */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -5730,10 +5936,10 @@ var TooltipBgColor = '#353C48';
 
 /***/ }),
 
-/***/ "./src/app/modules/ng-echarts/ng-echarts.module.ts":
-/*!*********************************************************!*\
-  !*** ./src/app/modules/ng-echarts/ng-echarts.module.ts ***!
-  \*********************************************************/
+/***/ "./src/app/shared/modules/ng-echarts/ng-echarts.module.ts":
+/*!****************************************************************!*\
+  !*** ./src/app/shared/modules/ng-echarts/ng-echarts.module.ts ***!
+  \****************************************************************/
 /*! exports provided: NgEchartsModule */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -5744,13 +5950,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
 /* harmony import */ var ng_zorro_antd__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ng-zorro-antd */ "./node_modules/ng-zorro-antd/fesm5/ng-zorro-antd.js");
-/* harmony import */ var _charts_base_charts_empty_charts_empty_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./charts-base/charts-empty/charts-empty.component */ "./src/app/modules/ng-echarts/charts-base/charts-empty/charts-empty.component.ts");
-/* harmony import */ var _charts_base_charts_loading_charts_loading_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./charts-base/charts-loading/charts-loading.component */ "./src/app/modules/ng-echarts/charts-base/charts-loading/charts-loading.component.ts");
-/* harmony import */ var _ng_echarts_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./ng-echarts.component */ "./src/app/modules/ng-echarts/ng-echarts.component.ts");
-/* harmony import */ var _ng_echarts_line_ng_echarts_line_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./ng-echarts-line/ng-echarts-line.component */ "./src/app/modules/ng-echarts/ng-echarts-line/ng-echarts-line.component.ts");
-/* harmony import */ var _ng_echarts_bar_ng_echarts_bar_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./ng-echarts-bar/ng-echarts-bar.component */ "./src/app/modules/ng-echarts/ng-echarts-bar/ng-echarts-bar.component.ts");
-/* harmony import */ var _ng_echarts_pie_ng_echarts_pie_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./ng-echarts-pie/ng-echarts-pie.component */ "./src/app/modules/ng-echarts/ng-echarts-pie/ng-echarts-pie.component.ts");
-/* harmony import */ var _ng_echarts_treemap_ng_echarts_treemap_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./ng-echarts-treemap/ng-echarts-treemap.component */ "./src/app/modules/ng-echarts/ng-echarts-treemap/ng-echarts-treemap.component.ts");
+/* harmony import */ var _charts_base_charts_empty_charts_empty_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./charts-base/charts-empty/charts-empty.component */ "./src/app/shared/modules/ng-echarts/charts-base/charts-empty/charts-empty.component.ts");
+/* harmony import */ var _charts_base_charts_loading_charts_loading_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./charts-base/charts-loading/charts-loading.component */ "./src/app/shared/modules/ng-echarts/charts-base/charts-loading/charts-loading.component.ts");
+/* harmony import */ var _ng_echarts_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./ng-echarts.component */ "./src/app/shared/modules/ng-echarts/ng-echarts.component.ts");
+/* harmony import */ var _ng_echarts_line_ng_echarts_line_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./ng-echarts-line/ng-echarts-line.component */ "./src/app/shared/modules/ng-echarts/ng-echarts-line/ng-echarts-line.component.ts");
+/* harmony import */ var _ng_echarts_bar_ng_echarts_bar_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./ng-echarts-bar/ng-echarts-bar.component */ "./src/app/shared/modules/ng-echarts/ng-echarts-bar/ng-echarts-bar.component.ts");
+/* harmony import */ var _ng_echarts_pie_ng_echarts_pie_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./ng-echarts-pie/ng-echarts-pie.component */ "./src/app/shared/modules/ng-echarts/ng-echarts-pie/ng-echarts-pie.component.ts");
+/* harmony import */ var _ng_echarts_treemap_ng_echarts_treemap_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./ng-echarts-treemap/ng-echarts-treemap.component */ "./src/app/shared/modules/ng-echarts/ng-echarts-treemap/ng-echarts-treemap.component.ts");
 
 
 
@@ -5790,6 +5996,68 @@ var NgEchartsModule = /** @class */ (function () {
         })
     ], NgEchartsModule);
     return NgEchartsModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/shared/shared.module.ts":
+/*!*****************************************!*\
+  !*** ./src/app/shared/shared.module.ts ***!
+  \*****************************************/
+/*! exports provided: SharedModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SharedModule", function() { return SharedModule; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var ng_zorro_antd__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ng-zorro-antd */ "./node_modules/ng-zorro-antd/fesm5/ng-zorro-antd.js");
+/* harmony import */ var _modules_ng_echarts__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/ng-echarts */ "./src/app/shared/modules/ng-echarts/index.ts");
+/* harmony import */ var _directives_clipboard_directive__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./directives/clipboard.directive */ "./src/app/shared/directives/clipboard.directive.ts");
+/* harmony import */ var _directives_clipboard_tooltip_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./directives/clipboard-tooltip.component */ "./src/app/shared/directives/clipboard-tooltip.component.ts");
+
+
+
+
+
+
+
+
+var SharedModule = /** @class */ (function () {
+    function SharedModule() {
+    }
+    SharedModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
+            declarations: [
+                _directives_clipboard_directive__WEBPACK_IMPORTED_MODULE_6__["ClipboardDirective"],
+                _directives_clipboard_tooltip_component__WEBPACK_IMPORTED_MODULE_7__["ClipboardTooltipComponent"]
+            ],
+            imports: [
+                _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"],
+                ng_zorro_antd__WEBPACK_IMPORTED_MODULE_4__["NgZorroAntdModule"],
+                _modules_ng_echarts__WEBPACK_IMPORTED_MODULE_5__["NgEchartsModule"]
+            ],
+            exports: [
+                _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"],
+                ng_zorro_antd__WEBPACK_IMPORTED_MODULE_4__["NgZorroAntdModule"],
+                _modules_ng_echarts__WEBPACK_IMPORTED_MODULE_5__["NgEchartsModule"],
+                _directives_clipboard_directive__WEBPACK_IMPORTED_MODULE_6__["ClipboardDirective"]
+            ],
+            entryComponents: [
+                _directives_clipboard_tooltip_component__WEBPACK_IMPORTED_MODULE_7__["ClipboardTooltipComponent"]
+            ]
+        })
+    ], SharedModule);
+    return SharedModule;
 }());
 
 

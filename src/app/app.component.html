@@ -1,9 +1,9 @@
 <div class="app-wrapper">
-  <app-header (headerReset)="headerReset()" (headerShare)="headerShare()">
+  <app-header (reset)="headerReset()" (share)="headerShare(tplContent)">
   </app-header>
   <div class="app-content">
     <div class="content-palette">
-      <app-color-palette (resultChange)="resultChange($event)" [(graph)]="graph">
+      <app-color-palette [(reset)]="reset" [(graph)]="graph" (resultChange)="resultChange($event)">
       </app-color-palette>
     </div>
     <div class="content-main">
@@ -19,3 +19,6 @@
     </div>
   </div>
 </div>
+<ng-template #tplContent>
+  <p clipboard [payload]="colorList" [isNeedTooltip]="true">{{colorList}}</p>
+</ng-template>

@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, ViewEncapsulation, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewEncapsulation, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 import * as CURVES from './coloralgorithm/curves.js';
 import * as GENERATE from './coloralgorithm/generate.js';
@@ -9,7 +9,7 @@ import * as GENERATE from './coloralgorithm/generate.js';
   styleUrls: ['./color-palette.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class ColorPaletteComponent implements OnInit {
+export class ColorPaletteComponent implements OnInit, OnChanges {
   values = {
     steps: 11,
     minor_steps_map: [null],
@@ -26,6 +26,8 @@ export class ColorPaletteComponent implements OnInit {
     lock_hex: '',
     modifier: 10,
   };
+  valuesClone = JSON.parse(JSON.stringify(this.values));
+
   steps = {
     min: 3,
     max: 21
@@ -77,14 +79,27 @@ export class ColorPaletteComponent implements OnInit {
   curves = Object.keys(CURVES);
   result = [];
 
+  @Input() reset = false;
+  @Output()
+  resetChange: EventEmitter<boolean> = new EventEmitter();
+
   @Input() graph = 'hue';
   @Output()
   graphChange: EventEmitter<string> = new EventEmitter();
+
   @Output()
   resultChange: EventEmitter<any[]> = new EventEmitter();
 
   ngOnInit() {
     this.valueChange('', 'lock_hex');
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    const { reset } = changes;
+    if (reset && reset.currentValue) {
+      this.values = JSON.parse(JSON.stringify(this.valuesClone));
+      this.valueChange('', 'lock_hex');
+    }
   }
 
   valueChange(value: any, key: string) {
@@ -99,6 +114,13 @@ export class ColorPaletteComponent implements OnInit {
     this.values[key] = value;
     this.result = GENERATE.generate(this.values);
     this.resultChange.emit(this.result);
+
+    if (this.reset) {
+      setTimeout(() => {
+        this.reset = false;
+        this.resetChange.emit(this.reset);
+      }, 0);
+    }
   }
 
   chageGraph(key: string) {

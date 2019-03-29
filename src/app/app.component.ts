@@ -10,6 +10,8 @@ export class AppComponent {
   title = 'colorbox';
   result = [];
   graph = 'hue';
+  reset = false;
+  colorList = '';
 
   constructor(private modalService: NzModalService) { }
 
@@ -20,14 +22,16 @@ export class AppComponent {
   }
 
   headerReset() {
-    window.location.reload();
+    this.reset = true;
   }
 
-  headerShare() {
-    const colorList = this.result.map(d => d.hex);
-    this.modalService.info({
-      nzTitle: 'Hex JSON',
-      nzContent: colorList.toString()
+  headerShare(tplContent) {
+    this.colorList = this.result.map(d => d.hex).toString();
+    this.modalService.create({
+      nzTitle: '颜色列表（点击下方列表即可复制）',
+      nzContent: tplContent,
+      nzCancelText: null,
+      nzOnOk: () => new Promise(resolve => resolve())
     });
   }
 }
