@@ -259,6 +259,7 @@ var ColorChartComponent = /** @class */ (function () {
             { label: '折线图', value: 'line' },
             { label: '柱状图', value: 'bar' },
             { label: '饼图', value: 'pie' },
+            { label: '矩形树图', value: 'treemap' }
         ];
         this.today = new Date();
         this.colorList = [];
@@ -289,17 +290,17 @@ var ColorChartComponent = /** @class */ (function () {
                 options.color = _this.colorList;
             }
         };
-        // 箱型矩图
+        // 矩形树图
         this.treemapData = {
             list: _macok_data__WEBPACK_IMPORTED_MODULE_3__["DeviceBrandData"].children,
             status: null,
             config: {
                 tooltipFormatter: function (params) {
-                    return "\u624B\u673A\u54C1\u724C\uFF1A" + params.name + "<br />\n        \t\t\t\u5360\u6BD4\uFF1A" + params.value.toFixed(2) + "%";
+                    return "\u624B\u673A\u54C1\u724C\uFF1A" + params.name + "<br />\n          \u5360\u6BD4\uFF1A" + params.value.toFixed(2) + "%";
                 }
             },
             optionsInit: function (options) {
-                options.color = _this.colorList;
+                options.series[0].levels[0].color = _this.colorList;
             }
         };
     }
@@ -330,6 +331,9 @@ var ColorChartComponent = /** @class */ (function () {
                 break;
             case 'pie':
                 this.changePieData();
+                break;
+            case 'treemap':
+                this.changeTreemapData();
                 break;
             default:
                 break;
@@ -383,6 +387,9 @@ var ColorChartComponent = /** @class */ (function () {
             });
         }
         this.pieData.list = list;
+    };
+    ColorChartComponent.prototype.changeTreemapData = function () {
+        this.treemapData.list = _macok_data__WEBPACK_IMPORTED_MODULE_3__["DeviceBrandData"].children.slice();
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
@@ -5259,46 +5266,41 @@ var NgEchartsTreemapComponent = /** @class */ (function () {
         this.isFinish = false;
         this.level = 0;
         /**
-         * @description {object} 图表自定义配置
-         */
+           * @description {object} 图表自定义配置
+           */
         this._dataConfig = {
             name: '',
             tooltipFormatter: null // 提示框浮层内容格式器
         };
-        this.isShowEmpty = false;
-        this.emptyText = '暂无数据';
+        /**
+           * @description {array} 原始数据
+           *  [{ name: xxx, value: xxx }]
+           */
+        this.data = [];
         this.status = null;
         this.loadingSize = 'default';
         this.loadingTip = 'Loading...';
         this.emptyTip = '暂无数据';
         this.optionsInit = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
+        this.chartInit = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
         this.levelChange = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
     }
-    Object.defineProperty(NgEchartsTreemapComponent.prototype, "dataConfig", {
-        set: function (data) {
-            if (data) {
-                this.createdataConfig(data);
+    NgEchartsTreemapComponent.prototype.ngOnChanges = function (_a) {
+        var dataConfig = _a.dataConfig, data = _a.data;
+        var isDataConfigChange = (dataConfig && dataConfig.currentValue && dataConfig.currentValue !== dataConfig.previousValue);
+        var isDataChange = (data && data.currentValue && data.currentValue !== data.previousValue);
+        if (isDataConfigChange) {
+            Object.assign(this._dataConfig, dataConfig.currentValue);
+            if (!isDataChange) {
+                this.createOptions(this.dataTmp);
             }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NgEchartsTreemapComponent.prototype, "data", {
-        /**
-         * @description {array} 原始数据
-         *  [{ name: xxx, value: xxx }]
-         */
-        set: function (data) {
-            var json = data;
-            if (json && json.length > 0) {
-                this.createOptions(json);
+        }
+        if (isDataChange) {
+            this.dataTmp = data.currentValue;
+            if (this.dataTmp && this.dataTmp.length > 0) {
+                this.createOptions(this.dataTmp);
             }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    NgEchartsTreemapComponent.prototype.createdataConfig = function (data) {
-        this._dataConfig = Object.assign(this._dataConfig, data);
+        }
     };
     NgEchartsTreemapComponent.prototype.createOptions = function (data) {
         var options = {
@@ -5332,7 +5334,7 @@ var NgEchartsTreemapComponent = /** @class */ (function () {
         this.options = options;
         this.optionsInit.emit(this.options);
     };
-    NgEchartsTreemapComponent.prototype.doChartInit = function (chart) {
+    NgEchartsTreemapComponent.prototype.onChartInit = function (chart) {
         var _this = this;
         if (chart) {
             chart.on('finished', function () {
@@ -5361,22 +5363,12 @@ var NgEchartsTreemapComponent = /** @class */ (function () {
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object])
-    ], NgEchartsTreemapComponent.prototype, "dataConfig", null);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Array),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Array])
-    ], NgEchartsTreemapComponent.prototype, "data", null);
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Array)
+    ], NgEchartsTreemapComponent.prototype, "data", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], NgEchartsTreemapComponent.prototype, "isShowEmpty", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], NgEchartsTreemapComponent.prototype, "emptyText", void 0);
+    ], NgEchartsTreemapComponent.prototype, "dataConfig", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
@@ -5408,11 +5400,15 @@ var NgEchartsTreemapComponent = /** @class */ (function () {
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"])
+    ], NgEchartsTreemapComponent.prototype, "chartInit", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"])
     ], NgEchartsTreemapComponent.prototype, "levelChange", void 0);
     NgEchartsTreemapComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'ng-echarts-treemap',
-            template: "\n\t\t<ng-echarts\n      [height]=\"height\"\n      [width]=\"width\"\n      [options]=\"options\"\n      [status]=\"status\"\n      [loadingSize]=\"loadingSize\"\n      [loadingTip]=\"loadingTip\"\n      [emptyTip]=\"emptyTip\">\n\t\t</ng-echarts>"
+            template: "\n\t\t<ng-echarts\n      [height]=\"height\"\n      [width]=\"width\"\n      [options]=\"options\"\n      [status]=\"status\"\n      [loadingSize]=\"loadingSize\"\n      [loadingTip]=\"loadingTip\"\n      [emptyTip]=\"emptyTip\"\n      (chartInit)=\"onChartInit($event)\">\n\t\t</ng-echarts>"
         })
     ], NgEchartsTreemapComponent);
     return NgEchartsTreemapComponent;

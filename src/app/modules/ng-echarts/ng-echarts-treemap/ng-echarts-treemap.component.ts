@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { EChartOption } from 'echarts';
 
 import { ColorLib, TooltipBgColor } from '../ng-echarts.model';
@@ -13,16 +13,17 @@ import { ColorLib, TooltipBgColor } from '../ng-echarts.model';
       [status]="status"
       [loadingSize]="loadingSize"
       [loadingTip]="loadingTip"
-      [emptyTip]="emptyTip">
+      [emptyTip]="emptyTip"
+      (chartInit)="onChartInit($event)">
 		</ng-echarts>`
 })
-export class NgEchartsTreemapComponent {
+export class NgEchartsTreemapComponent  implements OnChanges  {
   options: EChartOption;
   isFinish = false;
   level = 0;
   private dataTmp: any;
 
-	/**
+  /**
 	 * @description {object} 图表自定义配置
 	 */
   private _dataConfig: any = {
@@ -30,42 +31,40 @@ export class NgEchartsTreemapComponent {
     tooltipFormatter: null // 提示框浮层内容格式器
   };
 
-  @Input()
-  set dataConfig(data: any) {
-    if (data) {
-      this.createdataConfig(data);
-    }
-  }
-
-	/**
+  /**
 	 * @description {array} 原始数据
 	 *  [{ name: xxx, value: xxx }]
 	 */
-  @Input()
-  set data(data: any[]) {
-    let json = data;
-    if (json && json.length > 0) {
-      this.createOptions(json);
-    }
-  }
-
-  @Input() isShowEmpty = false;
-  @Input() emptyText = '暂无数据';
+  @Input() data: any[] = [];
+  @Input() dataConfig: any;
   @Input() height: number | string;
   @Input() width: number | string;
   @Input() status = null;
   @Input() loadingSize = 'default';
   @Input() loadingTip = 'Loading...';
   @Input() emptyTip = '暂无数据';
-
   @Output()
   optionsInit: EventEmitter<any> = new EventEmitter();
-
+  @Output()
+  chartInit: EventEmitter<any> = new EventEmitter();
   @Output()
   levelChange: EventEmitter<any> = new EventEmitter();
 
-  private createdataConfig(data: any) {
-    this._dataConfig = Object.assign(this._dataConfig, data);
+  ngOnChanges({ dataConfig, data }: SimpleChanges) {
+    const isDataConfigChange = (dataConfig && dataConfig.currentValue && dataConfig.currentValue !== dataConfig.previousValue);
+    const isDataChange = (data && data.currentValue && data.currentValue !== data.previousValue);
+    if (isDataConfigChange) {
+      Object.assign(this._dataConfig, dataConfig.currentValue);
+      if (!isDataChange) {
+        this.createOptions(this.dataTmp);
+      }
+    }
+    if (isDataChange) {
+      this.dataTmp = data.currentValue;
+      if (this.dataTmp && this.dataTmp.length > 0) {
+        this.createOptions(this.dataTmp);
+      }
+    }
   }
 
   private createOptions(data: any[]) {
@@ -101,7 +100,7 @@ export class NgEchartsTreemapComponent {
     this.optionsInit.emit(this.options);
   }
 
-  doChartInit(chart) {
+  onChartInit(chart) {
     if (chart) {
       chart.on('finished', () => {
         this.isFinish = true;
@@ -112,7 +111,6 @@ export class NgEchartsTreemapComponent {
           return false;
         }
         this.isFinish = false;
-
         if (this.level === 1) {
           chart.setOption(chart.getOption());
           this.level = 0;

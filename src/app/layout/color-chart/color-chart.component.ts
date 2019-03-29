@@ -14,7 +14,7 @@ export class ColorChartComponent implements OnInit {
     { label: '折线图', value: 'line' },
     { label: '柱状图', value: 'bar' },
     { label: '饼图', value: 'pie' },
-    // { label: '箱型矩图', value: 'treemap' }
+    { label: '矩形树图', value: 'treemap' }
   ];
 
   today = new Date();
@@ -50,18 +50,18 @@ export class ColorChartComponent implements OnInit {
     }
   };
 
-  // 箱型矩图
+  // 矩形树图
   treemapData = {
     list: DeviceBrandData.children,
     status: null,
     config: {
       tooltipFormatter: (params) => {
         return `手机品牌：${params.name}<br />
-        			占比：${params.value.toFixed(2)}%`;
+          占比：${params.value.toFixed(2)}%`;
       }
     },
     optionsInit: (options) => {
-      options.color = this.colorList;
+      options.series[0].levels[0].color = this.colorList;
     }
   };
 
@@ -91,6 +91,9 @@ export class ColorChartComponent implements OnInit {
         break;
       case 'pie':
         this.changePieData();
+        break;
+      case 'treemap':
+        this.changeTreemapData();
         break;
       default:
         break;
@@ -147,5 +150,9 @@ export class ColorChartComponent implements OnInit {
       });
     }
     this.pieData.list = list;
+  }
+
+  private changeTreemapData() {
+    this.treemapData.list = [...DeviceBrandData.children];
   }
 }
