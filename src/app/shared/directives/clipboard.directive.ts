@@ -41,7 +41,9 @@ export class ClipboardDirective implements OnDestroy {
       const clipboard = e.clipboardData;
       clipboard.setData('text', this.payload.toString());
 
-      this.componentRef.instance.status = 'done';
+      if (this.componentRef) {
+        this.componentRef.instance.status = 'done';
+      }
 
       this.copied.emit(this.payload);
     };
